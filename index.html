@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>State of Thought (SoT) | Project Website</title>
+  <meta name="description" content="State of Thought enables endogenous reasoning by state-conditioned evidence organization.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <span class="brand-dot"></span>
+        <span>State of Thought</span>
+      </a>
+      <nav>
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#efficiency">Efficiency</a>
+        <a href="#cases">Cases</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="pill">State-Driven Reasoning · Paper Coming Soon</p>
+        <h1>State of Thought Enables Endogenous Reasoning</h1>
+        <p class="subtitle">
+          SoT reframes test-time reasoning as a closed loop: the model's endogenous state selects the right historical evidence
+          for the next step and controls when to stop, rather than following fixed external reasoning programs.
+        </p>
+        <div class="author-hero">
+          <p class="author-hero-names">
+            Zhiren Gong<sup>1,2</sup>, Yikun Hou<sup>1,4</sup>, Zeng Zihao<sup>1</sup>, Ming Xiao<sup>5</sup>,
+            Chau Yuen<sup>3</sup>, Wei Yang Bryan Lim<sup>1</sup>
+          </p>
+          <p class="author-hero-affils">
+            <span><sup>1</sup> College of Computing and Data Science, Nanyang Technological University</span>
+            <span><sup>2</sup> Interdisciplinary Graduate Programme, Nanyang Technological University</span>
+            <span><sup>3</sup> School of Electrical and Electronic Engineering, Nanyang Technological University</span>
+            <span><sup>4</sup> Department of Mathematics and Mathematical Statistics, Umea University</span>
+            <span><sup>5</sup> Department of Information Science and Engineering, Royal Institute of Technology, Sweden</span>
+          </p>
+        </div>
+        <p class="hero-highlight">
+          Across <strong>4 models</strong> and <strong>20 datasets</strong>, SoT improves quality while reducing
+          generated tokens by <strong>69.0%</strong> and latency by <strong>48.7%</strong>.
+        </p>
+        <div class="cta">
+          <a class="btn btn-soft" href="#resources">Paper (coming soon)</a>
+          <a class="btn btn-soft" href="#resources">Code (coming soon)</a>
+          <button class="btn btn-soft" type="button" disabled>Cite (coming soon)</button>
+        </div>
+      </div>
+      <figure class="card figure-card hero-figure">
+        <img src="./assets/intro_main.png" alt="From external control to state of thought" data-full="./assets/intro_main.png" loading="eager">
+        <figcaption>Figure. Paradigm shift: from external control to endogenous state-conditioned reasoning.</figcaption>
+      </figure>
+
+      <div class="hero-bottom grid2">
+        <figure class="card figure-card">
+          <img src="./assets/intro_overview.png" alt="SoT overview across models tasks and efficiency" data-full="./assets/intro_overview.png" loading="lazy">
+          <figcaption>Figure. SoT performance across models, tasks, and efficiency metrics.</figcaption>
+        </figure>
+        <article class="card">
+          <h3>Why This Paradigm Matters</h3>
+          <ul>
+            <li><strong>External scripts are rigid:</strong> fixed reasoning formats are brittle across heterogeneous tasks.</li>
+            <li><strong>Search-heavy methods are costly:</strong> quality gains often depend on large sampling and high latency.</li>
+            <li><strong>SoT changes the control variable:</strong> reasoning is driven by endogenous state, not external templates.</li>
+            <li><strong>Result:</strong> better quality-efficiency frontier with a reusable closed-loop controller.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="container metrics">
+      <article><h3>4</h3><p>Backbones</p></article>
+      <article><h3>20</h3><p>Benchmarks</p></article>
+      <article><h3>69.0%</h3><p>Token reduction</p></article>
+      <article><h3>48.7%</h3><p>Latency reduction</p></article>
+      <article><h3>2.63x</h3><p>Long-context gain factor</p></article>
+      <article><h3>1.29x</h3><p>Quantitative gain factor</p></article>
+      <article><h3>1.62x</h3><p>General understanding gain factor</p></article>
+      <article><h3>1.72x</h3><p>Symbolic/code gain factor</p></article>
+      <article><h3>1.08x</h3><p>Multimodal gain factor</p></article>
+      <article><h3>84.1%</h3><p>Trajectory judge agreement</p></article>
+    </section>
+
+    <section id="abstract" class="container section">
+      <h2>Abstract</h2>
+      <article class="card">
+        <p>
+          Existing test-time reasoning often depends on external control: scripted reasoning formats or expanded search spaces.
+          SoT instead introduces <strong>endogenous reasoning</strong>, where a compact state derived from internal model dynamics
+          controls both evidence selection and stopping.
+        </p>
+        <p>
+          Concretely, SoT extracts a dynamics-geometric state and selectively activates historical support that matches the current
+          reasoning regime. This turns reasoning into a state-conditioned evidence process rather than an externally prescribed token chain.
+        </p>
+        <p>
+          The empirical pattern is consistent across quantitative, general understanding, symbolic/code, long-context, and multimodal tasks:
+          SoT improves task quality while reducing unnecessary reasoning cost.
+        </p>
+      </article>
+    </section>
+
+    <section id="method" class="container section">
+      <h2>Method</h2>
+      <div class="grid3 method-flow">
+        <article class="card">
+          <h3>1) Read Endogenous State</h3>
+          <p>At each step, SoT reads a compact state summarizing geometry, progress dynamics, directional consistency, and uncertainty.</p>
+          <p class="note">Output: a control signal that reflects current reasoning regime.</p>
+        </article>
+        <article class="card">
+          <h3>2) Select State-Matched Evidence</h3>
+          <p>SoT activates only the subset of historical reasoning support that is useful under the current state.</p>
+          <p class="note">Output: sparse active context for the next reasoning step.</p>
+        </article>
+        <article class="card">
+          <h3>3) State-Conditioned Stopping</h3>
+          <p>The same endogenous state also governs whether to continue or stop, avoiding fixed-depth reasoning schedules.</p>
+          <p class="note">Output: a closed loop balancing quality and efficiency.</p>
+        </article>
+      </div>
+
+      <div class="grid2">
+        <figure class="card figure-card">
+          <img src="./assets/state_space_regimes.png" alt="State trajectories across reasoning paradigms" data-full="./assets/state_space_regimes.png" loading="lazy">
+          <figcaption>Figure. Different reasoning paradigms occupy distinguishable endogenous state regions; SoT spans broader adaptive regimes.</figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="./assets/state_conditioned_activation.png" alt="State-conditioned activation and stopping patterns" data-full="./assets/state_conditioned_activation.png" loading="lazy">
+          <figcaption>Figure. Different endogenous states induce different sparse evidence activation patterns and stop tendencies.</figcaption>
+        </figure>
+      </div>
+
+      <article class="card">
+        <h3>Mechanism Insight</h3>
+        <ul>
+          <li><strong>Generalization source:</strong> SoT transfers as a control principle, not as a dataset-specific prompt recipe.</li>
+          <li><strong>Efficiency source:</strong> compute is redirected to relevant support, rather than uniformly longer chains.</li>
+          <li><strong>Interpretability:</strong> state clusters align with distinct evidence-selection and stop behaviors.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="results" class="container section">
+      <h2>Main Results</h2>
+      <article class="card">
+        <h3>Main Result Table (Llama-3.1-8B · Quantitative + Symbolic/Code)</h3>
+        <div class="table-scroll">
+          <table class="wide-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Method</th>
+                <th>GSM8K</th>
+                <th>MATH</th>
+                <th>DROP</th>
+                <th>QS avg</th>
+                <th>FOLIO</th>
+                <th>ProofWriter</th>
+                <th>BBH-Temporal</th>
+                <th>HumanEval</th>
+                <th>MBPP</th>
+                <th>S&C avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Greedy</td><td>Vanilla</td><td>79.0</td><td>58.2</td><td>6.2</td><td>53.9</td><td>29.6</td><td>26.0</td><td>26.0</td><td>25.0</td><td>55.2</td><td>33.0</td></tr>
+              <tr><td>Reasoning</td><td>CoT</td><td>80.8</td><td>64.2</td><td>1.7</td><td>55.5</td><td>4.9</td><td>24.5</td><td>70.0</td><td>25.0</td><td>51.6</td><td>31.2</td></tr>
+              <tr><td>Reasoning</td><td>PS</td><td>71.2</td><td>40.0</td><td>1.4</td><td>43.4</td><td>4.9</td><td>15.2</td><td>55.0</td><td>10.0</td><td>22.0</td><td>17.6</td></tr>
+              <tr><td>Reasoning</td><td>SR</td><td>75.8</td><td>44.8</td><td>15.6</td><td>50.4</td><td>32.5</td><td>31.0</td><td>46.0</td><td>25.0</td><td>36.4</td><td>32.9</td></tr>
+              <tr><td>Reasoning</td><td>SC</td><td>83.6</td><td>54.0</td><td>1.6</td><td>53.2</td><td>16.8</td><td>28.5</td><td>52.0</td><td>10.0</td><td>35.2</td><td>27.3</td></tr>
+              <tr><td>Reasoning</td><td>BoN</td><td>83.6</td><td>54.0</td><td>1.6</td><td>53.2</td><td>16.8</td><td>28.5</td><td>52.0</td><td>10.0</td><td>35.2</td><td>27.3</td></tr>
+              <tr><td>Reasoning</td><td>CB</td><td>48.0</td><td>36.5</td><td>19.8</td><td>37.1</td><td>40.4</td><td>35.8</td><td>34.0</td><td>30.0</td><td>49.2</td><td>38.6</td></tr>
+              <tr><td>Reasoning</td><td>MCTS</td><td>55.2</td><td>33.5</td><td>13.2</td><td>37.5</td><td>36.0</td><td>31.5</td><td>30.0</td><td>35.0</td><td>49.2</td><td>36.7</td></tr>
+              <tr><td>Memory</td><td>H2O</td><td>79.8</td><td>59.2</td><td>2.4</td><td>53.6</td><td>6.4</td><td>27.8</td><td>48.0</td><td>10.0</td><td>42.0</td><td>26.3</td></tr>
+              <tr><td>Memory</td><td>SNAP</td><td>80.4</td><td>60.2</td><td>2.3</td><td>54.1</td><td>8.4</td><td>26.2</td><td>55.0</td><td>15.0</td><td>41.2</td><td>27.3</td></tr>
+              <tr><td>Memory</td><td>STREAM</td><td>70.4</td><td>44.2</td><td>1.3</td><td>44.4</td><td>1.5</td><td>31.8</td><td>1.0</td><td>0.0</td><td>5.6</td><td>13.0</td></tr>
+              <tr><td>Latent</td><td>COCO</td><td>81.4</td><td>60.0</td><td>3.7</td><td>54.8</td><td>45.3</td><td>45.2</td><td>51.0</td><td>20.0</td><td>47.2</td><td>42.5</td></tr>
+              <tr><td>RL-Based</td><td>GRPO</td><td>0.0</td><td>0.5</td><td>0.3</td><td>0.2</td><td>2.0</td><td>2.2</td><td>7.0</td><td>0.0</td><td>0.0</td><td>1.8</td></tr>
+              <tr class="best-row"><td>Ours</td><td>SoT</td><td>83.6</td><td>54.8</td><td>38.9</td><td>62.8</td><td>43.4</td><td>60.2</td><td>77.0</td><td>48.8</td><td>49.2</td><td>54.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Main Result Table (Llama-3.1-8B · General + Long-Context)</h3>
+        <div class="table-scroll">
+          <table class="wide-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Method</th>
+                <th>CommonsenseQA</th>
+                <th>StrategyQA</th>
+                <th>BoolQ</th>
+                <th>MMLU</th>
+                <th>RACE</th>
+                <th>GU avg</th>
+                <th>HotpotQA</th>
+                <th>NarrativeQA</th>
+                <th>LongBench MultiFieldQA</th>
+                <th>LCR avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Greedy</td><td>Vanilla</td><td>48.0</td><td>68.8</td><td>59.2</td><td>45.6</td><td>50.7</td><td>54.2</td><td>7.0</td><td>20.1</td><td>32.7</td><td>16.2</td></tr>
+              <tr><td>Reasoning</td><td>CoT</td><td>32.8</td><td>31.5</td><td>37.2</td><td>34.0</td><td>50.3</td><td>36.3</td><td>2.0</td><td>4.5</td><td>26.9</td><td>7.1</td></tr>
+              <tr><td>Reasoning</td><td>PS</td><td>30.5</td><td>18.2</td><td>21.5</td><td>31.2</td><td>42.0</td><td>28.1</td><td>1.7</td><td>3.0</td><td>20.4</td><td>5.3</td></tr>
+              <tr><td>Reasoning</td><td>SR</td><td>57.0</td><td>64.0</td><td>72.2</td><td>62.4</td><td>62.7</td><td>63.6</td><td>17.9</td><td>21.7</td><td>25.5</td><td>20.6</td></tr>
+              <tr><td>Reasoning</td><td>SC</td><td>28.5</td><td>34.5</td><td>43.2</td><td>31.0</td><td>45.7</td><td>35.8</td><td>1.9</td><td>4.3</td><td>25.8</td><td>6.8</td></tr>
+              <tr><td>Reasoning</td><td>BoN</td><td>28.5</td><td>34.5</td><td>43.2</td><td>31.0</td><td>45.7</td><td>35.8</td><td>1.9</td><td>4.3</td><td>25.8</td><td>6.8</td></tr>
+              <tr><td>Reasoning</td><td>CB</td><td>46.0</td><td>71.5</td><td>82.2</td><td>51.2</td><td>56.0</td><td>61.1</td><td>15.5</td><td>27.5</td><td>26.2</td><td>21.8</td></tr>
+              <tr><td>Reasoning</td><td>MCTS</td><td>42.0</td><td>65.5</td><td>82.2</td><td>46.4</td><td>49.7</td><td>57.0</td><td>13.5</td><td>27.1</td><td>27.8</td><td>21.0</td></tr>
+              <tr><td>Memory</td><td>H2O</td><td>33.5</td><td>30.8</td><td>39.2</td><td>35.0</td><td>19.7</td><td>32.4</td><td>2.0</td><td>2.0</td><td>0.0</td><td>1.7</td></tr>
+              <tr><td>Memory</td><td>SNAP</td><td>33.5</td><td>31.0</td><td>38.5</td><td>34.6</td><td>16.7</td><td>31.8</td><td>2.0</td><td>2.0</td><td>0.0</td><td>1.7</td></tr>
+              <tr><td>Memory</td><td>STREAM</td><td>34.8</td><td>26.2</td><td>38.8</td><td>22.4</td><td>0.0</td><td>25.6</td><td>2.5</td><td>0.0</td><td>0.0</td><td>1.1</td></tr>
+              <tr><td>Latent</td><td>COCO</td><td>40.5</td><td>63.5</td><td>70.0</td><td>42.8</td><td>43.3</td><td>52.0</td><td>4.4</td><td>10.8</td><td>34.6</td><td>11.9</td></tr>
+              <tr><td>RL-Based</td><td>GRPO</td><td>10.5</td><td>3.8</td><td>9.8</td><td>8.2</td><td>12.0</td><td>8.7</td><td>0.6</td><td>1.1</td><td>5.3</td><td>1.6</td></tr>
+              <tr class="best-row"><td>Ours</td><td>SoT</td><td>71.0</td><td>67.2</td><td>80.0</td><td>64.6</td><td>75.7</td><td>71.1</td><td>25.7</td><td>39.4</td><td>38.3</td><td>33.0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Extended Experimental Modules</h3>
+        <p>Click each module to show the corresponding experimental table and interpretation.</p>
+        <div class="result-controls">
+          <button class="btn btn-soft result-toggle active" type="button" data-target="resultPanelBackbone">Cross-Backbone Generalization</button>
+          <button class="btn btn-soft result-toggle" type="button" data-target="resultPanelVLM">Multimodal Transfer (Qwen3-VL-8B)</button>
+          <button class="btn btn-soft result-toggle" type="button" data-target="resultPanelBoundary">Boundary Extensions</button>
+        </div>
+
+        <div id="resultPanelBackbone" class="result-panel show">
+          <div class="table-scroll">
+            <table class="wide-table compact">
+              <thead>
+                <tr>
+                  <th>Backbone</th>
+                  <th>Quantitative Reasoning avg</th>
+                  <th>Symbolic and Code avg</th>
+                  <th>General Understanding avg</th>
+                  <th>Long-Context avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Qwen2.5-14B (SoT)</td><td>66.1</td><td>76.8</td><td>81.4</td><td>See Appendix table</td></tr>
+                <tr><td>Mixtral-8x7B (SoT)</td><td>46.3</td><td>51.7</td><td>72.6</td><td>23.5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>Qwen2.5-14B shows especially strong General Understanding performance across all five GU datasets.</li>
+            <li>Mixtral-8x7B remains near-best in quantitative tasks and leads strongly in symbolic, GU, and long-context averages.</li>
+            <li>The same SoT controller transfers across markedly different backbone architectures.</li>
+          </ul>
+        </div>
+
+        <div id="resultPanelVLM" class="result-panel">
+          <div class="table-scroll">
+            <table class="wide-table compact">
+              <thead>
+                <tr>
+                  <th>Dataset</th>
+                  <th>CoT acc.</th>
+                  <th>SoT acc.</th>
+                  <th>CoT latency (s)</th>
+                  <th>SoT latency (s)</th>
+                  <th>CoT tokens</th>
+                  <th>SoT tokens</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Beans-M</td><td>80.8</td><td>82.8</td><td>29.9</td><td>14.1</td><td>232.3</td><td>493.5</td></tr>
+                <tr><td>Fashion-MNIST</td><td>68.8</td><td>72.8</td><td>31.0</td><td>12.5</td><td>225.7</td><td>462.9</td></tr>
+                <tr><td>DocVQA</td><td>71.1</td><td>71.8</td><td>19.4</td><td>12.2</td><td>167.2</td><td>226.8</td></tr>
+                <tr><td>InfographicVQA</td><td>67.5</td><td>66.9</td><td>7.8</td><td>17.1</td><td>229.5</td><td>301.4</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>SoT improves accuracy on Beans-M, Fashion-MNIST, and DocVQA while lowering latency on several visual tasks.</li>
+            <li>InfographicVQA remains harder for latency, showing where multimodal control still has room to improve.</li>
+            <li>Overall, state-conditioned evidence organization transfers beyond text-only reasoning.</li>
+          </ul>
+        </div>
+
+        <div id="resultPanelBoundary" class="result-panel">
+          <div class="table-scroll">
+            <table class="wide-table compact">
+              <thead>
+                <tr>
+                  <th>Variant</th>
+                  <th>Quantitative avg</th>
+                  <th>Symbolic and Code avg</th>
+                  <th>General Understanding avg</th>
+                  <th>Long-Context avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Top-3 baseline average</td><td>53.5</td><td>44.0</td><td>61.5</td><td>24.2</td></tr>
+                <tr><td>SoT-Training-free</td><td>59.0</td><td>49.1</td><td>52.0</td><td>27.8</td></tr>
+                <tr><td>SoT-Embedding</td><td>59.0</td><td>49.8</td><td>51.9</td><td>28.6</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>Even without full internal access, SoT variants remain competitive and often exceed Top-3 baseline averages in key domains.</li>
+            <li>The largest relative resilience appears in long-context tasks, where trajectory-level organization is critical.</li>
+            <li>These results support that the mechanism is not tied to one specific implementation interface.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Performance Interpretation</h3>
+        <p>
+          SoT consistently outperforms strong baselines across heterogeneous reasoning regimes. This pattern suggests the gain
+          is structural: changing the control variable from external token programs to endogenous state-conditioned evidence organization.
+        </p>
+        <p>
+          On Llama-3.1-8B, SoT leads all four domain averages and achieves best or tied-best performance on most datasets, showing
+          that robust gains do not require larger search budgets.
+        </p>
+      </article>
+    </section>
+
+    <section id="efficiency" class="container section">
+      <h2>Efficiency & Trade-off</h2>
+      <div class="grid2">
+        <figure class="card figure-card">
+          <img src="./assets/tradeoff_qwen14b_ungrouped_baselines.png" alt="Tradeoff on Qwen2.5-14B" data-full="./assets/tradeoff_qwen14b_ungrouped_baselines.png" loading="lazy">
+          <figcaption>Figure. Trade-off on Qwen2.5-14B.</figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="./assets/tradeoff_mixtral_ungrouped_baselines.png" alt="Tradeoff on Mixtral-8x7B" data-full="./assets/tradeoff_mixtral_ungrouped_baselines.png" loading="lazy">
+          <figcaption>Figure. Trade-off on Mixtral-8x7B.</figcaption>
+        </figure>
+      </div>
+
+      <div class="grid2">
+        <figure class="card figure-card">
+          <img src="./assets/tradeoff_llama_ungrouped_baselines.png" alt="Tradeoff on Llama-3.1-8B" data-full="./assets/tradeoff_llama_ungrouped_baselines.png" loading="lazy">
+          <figcaption>Figure. Trade-off on Llama-3.1-8B.</figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="./assets/tradeoff_qwen3vl_ungrouped_baselines.png" alt="Tradeoff on Qwen3-VL-8B" data-full="./assets/tradeoff_qwen3vl_ungrouped_baselines.png" loading="lazy">
+          <figcaption>Figure. Trade-off on Qwen3-VL-8B.</figcaption>
+        </figure>
+      </div>
+
+      <article class="card">
+        <h3>Llama Efficiency Summary (Domain Average)</h3>
+        <div class="table-scroll">
+          <table class="wide-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>QS Tok / Lat</th>
+                <th>S&C Tok / Lat</th>
+                <th>GU Tok / Lat</th>
+                <th>LCR Tok / Lat</th>
+                <th>Avg Tok</th>
+                <th>Avg Lat (s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>CoT</td><td>271.6 / 17.5</td><td>369.8 / 27.5</td><td>212.9 / 12.8</td><td>198.1 / 19.6</td><td>263.1</td><td>19.4</td></tr>
+              <tr><td>Self-Consistency</td><td>736.8 / 43.1</td><td>953.9 / 63.5</td><td>626.5 / 37.6</td><td>533.8 / 48.9</td><td>712.8</td><td>48.3</td></tr>
+              <tr><td>Constrained Beam</td><td>423.9 / 22.0</td><td>363.9 / 19.4</td><td>341.7 / 16.8</td><td>283.7 / 19.5</td><td>353.3</td><td>19.4</td></tr>
+              <tr><td>MCTS</td><td>422.1 / 21.4</td><td>364.7 / 19.4</td><td>335.2 / 16.5</td><td>286.6 / 20.5</td><td>352.1</td><td>19.4</td></tr>
+              <tr><td>H2O</td><td>226.0 / 16.7</td><td>264.4 / 34.6</td><td>185.6 / 15.8</td><td>155.8 / 21.5</td><td>207.9</td><td>22.1</td></tr>
+              <tr><td>COCO</td><td>171.5 / 11.5</td><td>214.6 / 20.4</td><td>87.2 / 6.7</td><td>131.5 / 30.3</td><td>151.2</td><td>17.2</td></tr>
+              <tr class="best-row"><td>SoT</td><td>219.4 / 5.8</td><td>294.0 / 9.5</td><td>64.0 / 1.8</td><td>181.6 / 22.0</td><td>189.8</td><td>9.8</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Efficiency Insight</h3>
+        <ul>
+          <li><strong>Search-heavy baselines</strong> often move to high-token and high-latency zones.</li>
+          <li><strong>Memory-only compression</strong> may cut tokens but can lose state-relevant support and hurt quality.</li>
+          <li><strong>SoT frontier shift</strong>: quality gains and cost reduction are achieved jointly, not by a simple trade.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="cases" class="container section">
+      <h2>Case Studies</h2>
+      <article class="card">
+        <h3>Case-Level Insight</h3>
+        <p>
+          Across arithmetic, long-context QA, and multimodal chart reasoning, SoT exhibits a shared pattern:
+          it keeps only support still needed for the next decision, suppresses obsolete context, and raises stop readiness
+          when sufficient evidence has accumulated.
+        </p>
+      </article>
+
+      <div class="dataset-tabs">
+        <button class="tab-btn active" type="button" data-panel="panel_overview">Overview</button>
+        <button class="tab-btn" type="button" data-panel="panel_arithmetic">Arithmetic</button>
+        <button class="tab-btn" type="button" data-panel="panel_longcontext">Long-Context</button>
+        <button class="tab-btn" type="button" data-panel="panel_vlm">Multimodal</button>
+      </div>
+
+      <div id="panel_overview" class="tab-panel active">
+        <figure class="card figure-card">
+          <img src="./assets/app_case.png" alt="Representative SoT case trajectory" data-full="./assets/app_case.png" loading="lazy">
+          <figcaption>Figure. Representative SoT case with step-level active evidence and stop probability.</figcaption>
+        </figure>
+      </div>
+      <div id="panel_arithmetic" class="tab-panel">
+        <figure class="card figure-card">
+          <img src="./assets/app_case_arithmetic.png" alt="Arithmetic case study" data-full="./assets/app_case_arithmetic.png" loading="lazy">
+          <figcaption>Figure. Arithmetic case: staged decomposition with non-monotone evidence carry.</figcaption>
+        </figure>
+      </div>
+      <div id="panel_longcontext" class="tab-panel">
+        <figure class="card figure-card">
+          <img src="./assets/app_case_longcontext.png" alt="Long-context case study" data-full="./assets/app_case_longcontext.png" loading="lazy">
+          <figcaption>Figure. Long-context case: sparse retrieval after exploration stabilizes contrastive reasoning.</figcaption>
+        </figure>
+      </div>
+      <div id="panel_vlm" class="tab-panel">
+        <figure class="card figure-card">
+          <img src="./assets/app_case_vlm.png" alt="VLM case study" data-full="./assets/app_case_vlm.png" loading="lazy">
+          <figcaption>Figure. Multimodal case: the same state-conditioned interface transfers to chart-grounded reasoning.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="resources" class="container section">
+      <h2>Resources</h2>
+      <div class="grid3">
+        <article class="card resource-card">
+          <h3>Paper</h3>
+          <p>Coming soon.</p>
+        </article>
+        <article class="card resource-card">
+          <h3>Code</h3>
+          <p>Coming soon.</p>
+        </article>
+        <article class="card resource-card">
+          <h3>Citation</h3>
+          <p>Formal BibTeX will be released soon.</p>
+        </article>
+      </div>
+
+      <article class="card contact-card">
+        <h3>Contact</h3>
+        <p>For collaboration or questions, contact <a class="contact-link" href="mailto:zhiren001@e.ntu.edu.sg">zhiren001@e.ntu.edu.sg</a>.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>State of Thought project website.</p>
+    </div>
+  </footer>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Close image view">×</button>
+    <img id="lightboxImg" src="" alt="Expanded figure preview">
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
