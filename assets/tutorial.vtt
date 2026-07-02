@@ -1,0 +1,211 @@
+WEBVTT
+
+00:00:00.600 --> 00:00:03.438
+Let's understand State of Thought, or SoT —
+
+00:00:03.438 --> 00:00:08.058
+a way to let a language model steer its own reasoning from the inside,
+
+00:00:08.058 --> 00:00:10.104
+built up from first principles.
+
+00:00:10.554 --> 00:00:12.900
+First, how models reason today,
+
+00:00:12.900 --> 00:00:16.986
+and why that reasoning is controlled from the outside.
+
+00:00:17.436 --> 00:00:20.088
+A model solves a problem step by step.
+
+00:00:20.088 --> 00:00:24.972
+Each step adds a new piece of thinking to a growing chain of evidence.
+
+00:00:25.422 --> 00:00:29.670
+To make it reason better, we usually bolt on external control.
+
+00:00:30.120 --> 00:00:32.225
+One line fixes the format.
+
+00:00:32.225 --> 00:00:35.788
+Think step by step, then plan, then revise —
+
+00:00:35.788 --> 00:00:39.432
+a fixed script the model is forced to follow.
+
+00:00:39.882 --> 00:00:42.414
+Another line widens the search.
+
+00:00:42.414 --> 00:00:47.723
+Sample many chains, branch into trees, explore more trajectories,
+
+00:00:47.723 --> 00:00:49.602
+and then pick a winner.
+
+00:00:50.052 --> 00:00:55.203
+Both work, but both steer from outside — a rigid script or a search policy —
+
+00:00:55.203 --> 00:00:58.524
+blind to what the model is actually doing inside.
+
+00:00:58.974 --> 00:01:04.786
+So the control is brittle across different kinds of problems, and expensive,
+
+00:01:04.786 --> 00:01:09.222
+because every extra chain costs more tokens and more time.
+
+00:01:09.672 --> 00:01:12.883
+State of Thought changes the control variable.
+
+00:01:12.883 --> 00:01:16.512
+The steering now comes from inside the model itself.
+
+00:01:16.962 --> 00:01:17.856
+At each step,
+
+00:01:17.856 --> 00:01:23.154
+SoT reads a compact state from the model's own internal information transfer.
+
+00:01:23.604 --> 00:01:27.879
+Four numbers: how concentrated the internal structure is,
+
+00:01:27.879 --> 00:01:33.279
+how much progress the step made, whether the direction stays consistent,
+
+00:01:33.279 --> 00:01:35.604
+and how uncertain the model is.
+
+00:01:36.054 --> 00:01:39.715
+Together they form a dynamics-geometric state —
+
+00:01:39.715 --> 00:01:44.310
+a compact fingerprint of where the reasoning is, right now.
+
+00:01:44.760 --> 00:01:47.152
+Plotted across many trajectories,
+
+00:01:47.152 --> 00:01:51.865
+scripted methods collapse into fixed regions of this state space,
+
+00:01:51.865 --> 00:01:55.272
+while SoT spans a broader, more adaptive range.
+
+00:01:55.722 --> 00:01:58.376
+The state then drives two decisions.
+
+00:01:58.376 --> 00:02:01.473
+First: which past evidence to keep active.
+
+00:02:01.473 --> 00:02:04.275
+Instead of carrying the whole history,
+
+00:02:04.275 --> 00:02:08.994
+SoT keeps only the sparse subset that matches the current state.
+
+00:02:09.444 --> 00:02:11.005
+Second: when to stop.
+
+00:02:11.005 --> 00:02:15.390
+When the state signals that enough support has accumulated,
+
+00:02:15.390 --> 00:02:18.660
+SoT ends reasoning and commits to an answer.
+
+00:02:19.110 --> 00:02:20.608
+That closes the loop.
+
+00:02:20.608 --> 00:02:24.747
+State selects evidence, evidence conditions the next step,
+
+00:02:24.747 --> 00:02:29.670
+and the new step updates the state — with no external script imposed.
+
+00:02:30.120 --> 00:02:32.561
+And the controller is lightweight.
+
+00:02:32.561 --> 00:02:38.160
+The backbone stays frozen; only the tiny select-and-stop interface is trained.
+
+00:02:38.610 --> 00:02:39.945
+Now the evidence.
+
+00:02:39.945 --> 00:02:44.658
+Four backbones, twenty datasets, five families of reasoning.
+
+00:02:45.108 --> 00:02:50.583
+On Llama-3.1-8B, SoT leads every domain average — quantitative,
+
+00:02:50.583 --> 00:02:56.580
+general understanding, symbolic and code, and long-context reasoning.
+
+00:02:57.030 --> 00:03:01.864
+The gains are largest exactly where fixed control struggles most:
+
+00:03:01.864 --> 00:03:04.542
+long-context and symbolic reasoning.
+
+00:03:04.992 --> 00:03:08.210
+And it reaches those numbers while spending less:
+
+00:03:08.210 --> 00:03:13.464
+sixty-nine percent fewer generated tokens, and forty-nine percent lower latency.
+
+00:03:13.914 --> 00:03:16.538
+On the accuracy-versus-cost frontier,
+
+00:03:16.538 --> 00:03:20.297
+search-heavy methods drift into the expensive corner,
+
+00:03:20.297 --> 00:03:23.418
+while SoT sits at high quality and low cost.
+
+00:03:23.868 --> 00:03:27.398
+Why does trimming evidence help, instead of hurting?
+
+00:03:27.398 --> 00:03:32.964
+Because state-matched context is exactly the context the next step actually needs.
+
+00:03:33.414 --> 00:03:36.072
+Clustering the states makes it visible:
+
+00:03:36.072 --> 00:03:40.775
+each reasoning regime maps to its own stable pattern of what to keep,
+
+00:03:40.775 --> 00:03:41.934
+and when to stop.
+
+00:03:42.384 --> 00:03:46.454
+In a single case you can watch it keep only the live sub-results,
+
+00:03:46.454 --> 00:03:51.024
+drop the stale ones, and raise its stop-readiness as the answer locks in.
+
+00:03:51.474 --> 00:03:53.739
+Does it depend on the full recipe?
+
+00:03:53.739 --> 00:03:58.002
+Strip the training away and use fixed rules — still competitive.
+
+00:03:58.452 --> 00:04:03.708
+Hide the internals and drive it from text embeddings alone — still competitive.
+
+00:04:04.158 --> 00:04:08.298
+It transfers across architectures — dense, mixture-of-experts,
+
+00:04:08.298 --> 00:04:10.235
+and a vision-language model —
+
+00:04:10.235 --> 00:04:17.046
+and even to a black-box trajectory judge that agrees with correctness eighty-four percent of the time.
+
+00:04:17.496 --> 00:04:22.416
+The advantage is the principle, not any single implementation.
+
+00:04:22.866 --> 00:04:27.512
+So reasoning need not rely on ever more external scaffolding.
+
+00:04:27.512 --> 00:04:33.072
+Adaptivity and efficiency can emerge from the model's own internal state.
+
+00:04:33.072 --> 00:04:37.794
+Code, an interactive page, and the paper are linked on screen.

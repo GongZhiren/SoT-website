@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tutorial — State of Thought (SoT)</title>
+  <meta name="description" content="A narrated, animated video tutorial on State of Thought: endogenous reasoning steered by the model's own internal state.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .tut-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start}
+    @media (max-width:940px){.tut-grid{grid-template-columns:1fr}}
+    .video-card{padding:14px}
+    .video-card video{width:100%;border-radius:14px;display:block;background:#05080f;box-shadow:var(--shadow)}
+    .chapters{position:sticky;top:96px}
+    .chapters h4{margin:2px 0 12px;font-size:1.02rem}
+    .chapters ul{list-style:none;margin:0;padding:0;max-height:520px;overflow:auto}
+    .chapters li{margin:0 0 6px}
+    .chapters button{width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);
+      color:var(--ink);border-radius:12px;padding:9px 12px;cursor:pointer;font:inherit;
+      display:flex;gap:10px;align-items:baseline;transition:.18s}
+    .chapters button:hover{border-color:var(--cyan);transform:translateX(2px)}
+    .chapters button.on{border-color:var(--cyan);background:rgba(70,197,217,.12)}
+    .chapters button span{color:var(--teal);font-variant-numeric:tabular-nums;font-weight:700;min-width:40px;font-size:.86rem}
+    .chap-note{color:var(--ink-soft);font-size:.86rem;margin-top:12px;line-height:1.5}
+    .chap-note a{color:var(--teal);font-weight:600}
+    .tag{display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid var(--line);
+      background:var(--panel);color:var(--teal);font-weight:700;font-size:.82rem;letter-spacing:.04em}
+    .takeaways{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+    @media (max-width:860px){.takeaways{grid-template-columns:1fr}}
+    .tk{display:flex;gap:14px;align-items:flex-start}
+    .tk-n{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+      font-weight:800;color:#06303a;background:linear-gradient(135deg,var(--cyan),var(--mint))}
+  </style>
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="index.html"><span class="brand-dot"></span><span>State of Thought</span></a>
+      <nav>
+        <a href="index.html">&larr; Project page</a>
+        <a href="index.html#method">Method</a>
+        <a href="index.html#results">Results</a>
+        <a href="index.html#resources">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container" style="display:block">
+      <span class="tag">Video tutorial · about 4½ minutes</span>
+      <h1 style="margin:16px 0 8px">A guided tour of State of Thought</h1>
+      <p class="subtitle" style="max-width:820px">
+        Narrated and subtitled — the problem, the idea, and the evidence, told through animated figures.
+        SoT reframes reasoning as a closed loop driven by the model's own internal state.
+      </p>
+    </section>
+
+    <section class="container section" style="padding-top:6px">
+      <div class="tut-grid">
+        <article class="card video-card">
+          <video id="vid" controls preload="metadata" poster="assets/tutorial_poster.jpg" playsinline>
+            <source src="assets/tutorial.mp4" type="video/mp4">
+            <track kind="captions" src="assets/tutorial.vtt" srclang="en" label="English" default>
+            Your browser does not support video — <a href="assets/tutorial.mp4">download the tutorial</a>.
+          </video>
+        </article>
+        <aside class="card chapters">
+          <h4>Chapters</h4>
+          <ul>
+            <li><button data-t="0"><span>0:00</span> Introduction</button></li>
+            <li><button data-t="10"><span>0:10</span> I · The problem</button></li>
+            <li><button data-t="30"><span>0:30</span> External control</button></li>
+            <li><button data-t="58"><span>0:58</span> Why it hurts</button></li>
+            <li><button data-t="69"><span>1:09</span> II · The idea</button></li>
+            <li><button data-t="83"><span>1:23</span> The four-number state</button></li>
+            <li><button data-t="104"><span>1:44</span> State space</button></li>
+            <li><button data-t="115"><span>1:55</span> Select evidence</button></li>
+            <li><button data-t="129"><span>2:09</span> When to stop</button></li>
+            <li><button data-t="139"><span>2:19</span> The closed loop</button></li>
+            <li><button data-t="158"><span>2:38</span> III · Does it work?</button></li>
+            <li><button data-t="184"><span>3:04</span> Cheaper, not costlier</button></li>
+            <li><button data-t="193"><span>3:13</span> The frontier</button></li>
+            <li><button data-t="203"><span>3:23</span> IV · Why it works</button></li>
+            <li><button data-t="231"><span>3:51</span> V · How far it goes</button></li>
+            <li><button data-t="262"><span>4:22</span> Takeaway</button></li>
+          </ul>
+          <p class="chap-note">Captions are on by default; audio is a synthesized narration. Download:
+            <a href="assets/tutorial.mp4">MP4</a> · <a href="assets/tutorial.srt">SRT</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>What the tutorial covers</h2>
+      <article class="card">
+        <div class="takeaways">
+          <div class="tk"><div class="tk-n">1</div><p><strong>Why external control is limited.</strong>
+            Fixed reasoning scripts are brittle across tasks, and search-heavy methods pay in tokens and latency —
+            both blind to the model's evolving internal state.</p></div>
+          <div class="tk"><div class="tk-n">2</div><p><strong>The endogenous state.</strong>
+            A compact four-number, dynamics-geometric state that decides which past evidence to keep active
+            and when to stop — closing reasoning into a self-driven loop.</p></div>
+          <div class="tk"><div class="tk-n">3</div><p><strong>That it works and generalizes.</strong>
+            Higher accuracy with 69% fewer tokens and 49% lower latency, across 4 backbones and 20 datasets,
+            plus training-free, embedding-only, and black-box variants.</p></div>
+        </div>
+      </article>
+
+      <div class="grid2" style="margin-top:22px">
+        <a class="card resource-card" href="index.html" style="text-decoration:none">
+          <h3>Full project page →</h3>
+          <p>Interactive figures, main results, efficiency trade-offs, and case studies.</p>
+        </a>
+        <a class="card resource-card" href="index.html#resources" style="text-decoration:none">
+          <h3>Paper &amp; code</h3>
+          <p>Links and citation are collected on the project page (coming soon).</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>State of Thought · <a href="index.html" style="color:var(--teal)">project page</a></p></div>
+  </footer>
+
+  <script>
+    const v = document.getElementById('vid');
+    const btns = document.querySelectorAll('.chapters button');
+    btns.forEach(b => b.addEventListener('click', () => {
+      v.currentTime = +b.dataset.t; v.play().catch(()=>{});
+      btns.forEach(x => x.classList.remove('on')); b.classList.add('on');
+      v.scrollIntoView({behavior:'smooth', block:'center'});
+    }));
+    v.addEventListener('timeupdate', () => {
+      let cur = null;
+      btns.forEach(b => { if (v.currentTime + 0.25 >= +b.dataset.t) cur = b; });
+      if (cur) { btns.forEach(x => x.classList.remove('on')); cur.classList.add('on'); }
+    });
+  </script>
+</body>
+</html>
