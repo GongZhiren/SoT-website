@@ -1,279 +1,291 @@
 1
-00:00:00,600 --> 00:00:03,438
+00:00:00,600 --> 00:00:03,510
 Let's understand State of Thought, or SoT —
 
 2
-00:00:03,438 --> 00:00:08,058
+00:00:03,510 --> 00:00:08,246
 a way to let a language model steer its own reasoning from the inside,
 
 3
-00:00:08,058 --> 00:00:10,104
+00:00:08,246 --> 00:00:10,344
 built up from first principles.
 
 4
-00:00:10,554 --> 00:00:12,900
+00:00:10,794 --> 00:00:13,254
 First, how models reason today,
 
 5
-00:00:12,900 --> 00:00:16,986
+00:00:13,254 --> 00:00:17,538
 and why that reasoning is controlled from the outside.
 
 6
-00:00:17,436 --> 00:00:20,088
+00:00:17,988 --> 00:00:20,690
 A model solves a problem step by step.
 
 7
-00:00:20,088 --> 00:00:24,972
+00:00:20,690 --> 00:00:25,668
 Each step adds a new piece of thinking to a growing chain of evidence.
 
 8
-00:00:25,422 --> 00:00:29,670
+00:00:26,118 --> 00:00:30,150
 To make it reason better, we usually bolt on external control.
 
 9
-00:00:30,120 --> 00:00:32,225
+00:00:30,600 --> 00:00:32,656
 One line fixes the format.
 
 10
-00:00:32,225 --> 00:00:35,788
+00:00:32,656 --> 00:00:36,137
 Think step by step, then plan, then revise —
 
 11
-00:00:35,788 --> 00:00:39,432
+00:00:36,137 --> 00:00:39,696
 a fixed script the model is forced to follow.
 
 12
-00:00:39,882 --> 00:00:42,414
+00:00:40,146 --> 00:00:42,691
 Another line widens the search.
 
 13
-00:00:42,414 --> 00:00:47,723
+00:00:42,691 --> 00:00:48,026
 Sample many chains, branch into trees, explore more trajectories,
 
 14
-00:00:47,723 --> 00:00:49,602
+00:00:48,026 --> 00:00:49,914
 and then pick a winner.
 
 15
-00:00:50,052 --> 00:00:55,203
+00:00:50,364 --> 00:00:55,544
 Both work, but both steer from outside — a rigid script or a search policy —
 
 16
-00:00:55,203 --> 00:00:58,524
+00:00:55,544 --> 00:00:58,884
 blind to what the model is actually doing inside.
 
 17
-00:00:58,974 --> 00:01:04,786
+00:00:59,334 --> 00:01:05,078
 So the control is brittle across different kinds of problems, and expensive,
 
 18
-00:01:04,786 --> 00:01:09,222
+00:01:05,078 --> 00:01:09,462
 because every extra chain costs more tokens and more time.
 
 19
-00:01:09,672 --> 00:01:12,883
+00:01:09,912 --> 00:01:13,325
 State of Thought changes the control variable.
 
 20
-00:01:12,883 --> 00:01:16,512
+00:01:13,325 --> 00:01:17,184
 The steering now comes from inside the model itself.
 
 21
-00:01:16,962 --> 00:01:17,856
+00:01:17,634 --> 00:01:18,525
 At each step,
 
 22
-00:01:17,856 --> 00:01:23,154
+00:01:18,525 --> 00:01:23,802
 SoT reads a compact state from the model's own internal information transfer.
 
 23
-00:01:23,604 --> 00:01:27,879
+00:01:24,252 --> 00:01:28,501
 Four numbers: how concentrated the internal structure is,
 
 24
-00:01:27,879 --> 00:01:33,279
+00:01:28,501 --> 00:01:33,869
 how much progress the step made, whether the direction stays consistent,
 
 25
-00:01:33,279 --> 00:01:35,604
+00:01:33,869 --> 00:01:36,180
 and how uncertain the model is.
 
 26
-00:01:36,054 --> 00:01:39,715
+00:01:36,630 --> 00:01:40,674
 Together they form a dynamics-geometric state —
 
 27
-00:01:39,715 --> 00:01:44,310
+00:01:40,674 --> 00:01:45,750
 a compact fingerprint of where the reasoning is, right now.
 
 28
-00:01:44,760 --> 00:01:47,152
+00:01:46,200 --> 00:01:48,560
 Plotted across many trajectories,
 
 29
-00:01:47,152 --> 00:01:51,865
+00:01:48,560 --> 00:01:53,207
 scripted methods collapse into fixed regions of this state space,
 
 30
-00:01:51,865 --> 00:01:55,272
+00:01:53,207 --> 00:01:56,568
 while SoT spans a broader, more adaptive range.
 
 31
-00:01:55,722 --> 00:01:58,376
+00:01:57,018 --> 00:01:59,615
 The state then drives two decisions.
 
 32
-00:01:58,376 --> 00:02:01,473
+00:01:59,615 --> 00:02:02,644
 First: which past evidence to keep active.
 
 33
-00:02:01,473 --> 00:02:04,275
+00:02:02,644 --> 00:02:05,385
 Instead of carrying the whole history,
 
 34
-00:02:04,275 --> 00:02:08,994
+00:02:05,385 --> 00:02:10,002
 SoT keeps only the sparse subset that matches the current state.
 
 35
-00:02:09,444 --> 00:02:11,005
+00:02:10,452 --> 00:02:12,033
 Second: when to stop.
 
 36
-00:02:11,005 --> 00:02:15,390
+00:02:12,033 --> 00:02:16,475
 When the state signals that enough support has accumulated,
 
 37
-00:02:15,390 --> 00:02:18,660
+00:02:16,475 --> 00:02:19,788
 SoT ends reasoning and commits to an answer.
 
 38
-00:02:19,110 --> 00:02:20,608
+00:02:20,238 --> 00:02:21,706
 That closes the loop.
 
 39
-00:02:20,608 --> 00:02:24,747
+00:02:21,706 --> 00:02:25,759
 State selects evidence, evidence conditions the next step,
 
 40
-00:02:24,747 --> 00:02:29,670
+00:02:25,759 --> 00:02:30,582
 and the new step updates the state — with no external script imposed.
 
 41
-00:02:30,120 --> 00:02:32,561
+00:02:31,032 --> 00:02:33,895
 And the controller is lightweight.
 
 42
-00:02:32,561 --> 00:02:38,160
-The backbone stays frozen; only the tiny select-and-stop interface is trained.
+00:02:33,895 --> 00:02:37,178
+The backbone stays frozen; only a tiny,
 
 43
-00:02:38,610 --> 00:02:39,945
-Now the evidence.
+00:02:37,178 --> 00:02:41,472
+582-parameter select-and-stop interface is trained.
 
 44
-00:02:39,945 --> 00:02:44,658
-Four backbones, twenty datasets, five families of reasoning.
+00:02:41,922 --> 00:02:43,175
+Now the evidence.
 
 45
-00:02:45,108 --> 00:02:50,583
-On Llama-3.1-8B, SoT leads every domain average — quantitative,
+00:02:43,175 --> 00:02:48,188
+Three language models and a vision-language model, sixteen datasets,
 
 46
-00:02:50,583 --> 00:02:56,580
-general understanding, symbolic and code, and long-context reasoning.
+00:02:48,188 --> 00:02:50,178
+four families of reasoning.
 
 47
-00:02:57,030 --> 00:03:01,864
-The gains are largest exactly where fixed control struggles most:
+00:02:50,628 --> 00:02:56,149
+On Llama-3.1-8B, SoT leads every domain average — quantitative,
 
 48
-00:03:01,864 --> 00:03:04,542
-long-context and symbolic reasoning.
+00:02:56,149 --> 00:03:02,196
+general understanding, symbolic and code, and long-context reasoning.
 
 49
-00:03:04,992 --> 00:03:08,210
-And it reaches those numbers while spending less:
+00:03:02,646 --> 00:03:07,496
+The gains are largest exactly where fixed control struggles most:
 
 50
-00:03:08,210 --> 00:03:13,464
-sixty-nine percent fewer generated tokens, and forty-nine percent lower latency.
+00:03:07,496 --> 00:03:10,182
+long-context and symbolic reasoning.
 
 51
-00:03:13,914 --> 00:03:16,538
-On the accuracy-versus-cost frontier,
+00:03:10,632 --> 00:03:13,986
+And it reaches those numbers while spending less:
 
 52
-00:03:16,538 --> 00:03:20,297
-search-heavy methods drift into the expensive corner,
+00:03:13,986 --> 00:03:17,271
+about sixty-five percent fewer generated tokens,
 
 53
-00:03:20,297 --> 00:03:23,418
-while SoT sits at high quality and low cost.
+00:03:17,271 --> 00:03:19,872
+and forty-eight percent lower latency.
 
 54
-00:03:23,868 --> 00:03:27,398
-Why does trimming evidence help, instead of hurting?
+00:03:20,322 --> 00:03:23,046
+On the accuracy-versus-cost frontier,
 
 55
-00:03:27,398 --> 00:03:32,964
-Because state-matched context is exactly the context the next step actually needs.
+00:03:23,046 --> 00:03:26,947
+search-heavy methods drift into the expensive corner,
 
 56
-00:03:33,414 --> 00:03:36,072
-Clustering the states makes it visible:
+00:03:26,947 --> 00:03:30,186
+while SoT sits at high quality and low cost.
 
 57
-00:03:36,072 --> 00:03:40,775
-each reasoning regime maps to its own stable pattern of what to keep,
+00:03:30,636 --> 00:03:34,166
+Why does trimming evidence help, instead of hurting?
 
 58
-00:03:40,775 --> 00:03:41,934
-and when to stop.
+00:03:34,166 --> 00:03:39,732
+Because state-matched context is exactly the context the next step actually needs.
 
 59
-00:03:42,384 --> 00:03:46,454
-In a single case you can watch it keep only the live sub-results,
+00:03:40,182 --> 00:03:42,930
+Clustering the states makes it visible:
 
 60
-00:03:46,454 --> 00:03:51,024
-drop the stale ones, and raise its stop-readiness as the answer locks in.
+00:03:42,930 --> 00:03:47,792
+each reasoning regime maps to its own stable pattern of what to keep,
 
 61
-00:03:51,474 --> 00:03:53,739
-Does it depend on the full recipe?
+00:03:47,792 --> 00:03:48,990
+and when to stop.
 
 62
-00:03:53,739 --> 00:03:58,002
-Strip the training away and use fixed rules — still competitive.
+00:03:49,440 --> 00:03:53,555
+In a single case you can watch it keep only the live sub-results,
 
 63
-00:03:58,452 --> 00:04:03,708
-Hide the internals and drive it from text embeddings alone — still competitive.
+00:03:53,555 --> 00:03:58,176
+drop the stale ones, and raise its stop-readiness as the answer locks in.
 
 64
-00:04:04,158 --> 00:04:08,298
-It transfers across architectures — dense, mixture-of-experts,
+00:03:58,626 --> 00:04:00,949
+Does it depend on the full recipe?
 
 65
-00:04:08,298 --> 00:04:10,235
-and a vision-language model —
+00:04:00,949 --> 00:04:05,322
+Strip the training away and use fixed rules — still competitive.
 
 66
-00:04:10,235 --> 00:04:17,046
-and even to a black-box trajectory judge that agrees with correctness eighty-four percent of the time.
+00:04:05,772 --> 00:04:11,028
+Hide the internals and drive it from text embeddings alone — still competitive.
 
 67
-00:04:17,496 --> 00:04:22,416
-The advantage is the principle, not any single implementation.
+00:04:11,478 --> 00:04:15,649
+It transfers across architectures — dense, mixture-of-experts,
 
 68
-00:04:22,866 --> 00:04:27,512
-So reasoning need not rely on ever more external scaffolding.
+00:04:15,649 --> 00:04:17,600
+and a vision-language model —
 
 69
-00:04:27,512 --> 00:04:33,072
-Adaptivity and efficiency can emerge from the model's own internal state.
+00:04:17,600 --> 00:04:24,462
+and even to a black-box trajectory judge that agrees with correctness eighty-four percent of the time.
 
 70
-00:04:33,072 --> 00:04:37,794
+00:04:24,912 --> 00:04:29,664
+The advantage is the principle, not any single implementation.
+
+71
+00:04:30,114 --> 00:04:34,678
+So reasoning need not rely on ever more external scaffolding.
+
+72
+00:04:34,678 --> 00:04:40,139
+Adaptivity and efficiency can emerge from the model's own internal state.
+
+73
+00:04:40,139 --> 00:04:44,778
 Code, an interactive page, and the paper are linked on screen.

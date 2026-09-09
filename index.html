@@ -9,13 +9,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2028%2028%27%3E%3Crect%20width%3D%2728%27%20height%3D%2728%27%20rx%3D%277%27%20fill%3D%27%230f2747%27/%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%279%27%20fill%3D%27none%27%20stroke%3D%27%2363dfbf%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%2737%2020%27%20transform%3D%27rotate%28-58%2014%2014%29%27/%3E%3Cline%20x1%3D%2714%27%20y1%3D%2714%27%20x2%3D%2714%27%20y2%3D%276.5%27%20stroke%3D%27%235e8dff%27%20stroke-width%3D%271.1%27/%3E%3Cline%20x1%3D%2714%27%20y1%3D%2714%27%20x2%3D%2721.5%27%20y2%3D%2714%27%20stroke%3D%27%233aa88f%27%20stroke-width%3D%271.1%27/%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2714%27%20r%3D%273.4%27%20fill%3D%27%2346c5d9%27/%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%276%27%20r%3D%271.6%27%20fill%3D%27%235e8dff%27/%3E%3Ccircle%20cx%3D%2722%27%20cy%3D%2714%27%20r%3D%271.6%27%20fill%3D%27%233aa88f%27/%3E%3Ccircle%20cx%3D%2714%27%20cy%3D%2722%27%20r%3D%271.6%27%20fill%3D%27%2346c5d9%27/%3E%3Ccircle%20cx%3D%276%27%20cy%3D%2714%27%20r%3D%271.6%27%20fill%3D%27%2363dfbf%27/%3E%3C/svg%3E">
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
   <header class="topbar">
     <div class="container nav">
       <a class="brand" href="#top">
-        <span class="brand-dot"></span>
+        <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+          <defs>
+            <linearGradient id="bmg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#46c5d9"/><stop offset="1" stop-color="#63dfbf"/>
+            </linearGradient>
+          </defs>
+          <circle cx="14" cy="14" r="12" fill="none" stroke="url(#bmg)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="49 26" transform="rotate(-58 14 14)"/>
+          <line x1="14" y1="14" x2="14" y2="5.2" stroke="#5e8dff" stroke-width="1.3"/>
+          <line x1="14" y1="14" x2="22.2" y2="14" stroke="#3aa88f" stroke-width="1.3"/>
+          <line x1="14" y1="14" x2="14" y2="22.8" stroke="#46c5d9" stroke-width="1.3"/>
+          <line x1="14" y1="14" x2="5.8" y2="14" stroke="#63dfbf" stroke-width="1.3"/>
+          <circle cx="14" cy="14" r="4.3" fill="url(#bmg)"/>
+          <circle cx="14" cy="5.2" r="1.9" fill="#5e8dff"/>
+          <circle cx="22.2" cy="14" r="1.9" fill="#3aa88f"/>
+          <circle cx="14" cy="22.8" r="1.9" fill="#46c5d9"/>
+          <circle cx="5.8" cy="14" r="1.9" fill="#63dfbf"/>
+        </svg>
         <span>State of Thought</span>
       </a>
       <nav>
@@ -41,37 +58,37 @@
         </p>
         <div class="author-hero">
           <p class="author-hero-names">
-            Zhiren Gong<sup>1,2</sup>, Yikun Hou<sup>1,4</sup>, Zeng Zihao<sup>1</sup>, Ming Xiao<sup>5</sup>,
+            Zhiren Gong<sup>1,2</sup>, Zeng Zihao<sup>1</sup>, Yikun Hou<sup>1</sup>, Ming Xiao<sup>4</sup>,
             Chau Yuen<sup>3</sup>, Wei Yang Bryan Lim<sup>1</sup>
           </p>
           <p class="author-hero-affils">
             <span><sup>1</sup> College of Computing and Data Science, Nanyang Technological University</span>
             <span><sup>2</sup> Interdisciplinary Graduate Programme, Nanyang Technological University</span>
             <span><sup>3</sup> School of Electrical and Electronic Engineering, Nanyang Technological University</span>
-            <span><sup>4</sup> Department of Mathematics and Mathematical Statistics, Umea University</span>
-            <span><sup>5</sup> Department of Information Science and Engineering, Royal Institute of Technology, Sweden</span>
+            <span><sup>4</sup> Information Science &amp; Engineering, KTH Royal Institute of Technology, Sweden</span>
           </p>
         </div>
         <p class="hero-highlight">
-          Across <strong>4 models</strong> and <strong>20 datasets</strong>, SoT improves quality while reducing
-          generated tokens by <strong>69.0%</strong> and latency by <strong>48.7%</strong>.
+          Across <strong>3 LLMs</strong> and <strong>2 VLM scales</strong> (16 text benchmarks + 3 multimodal tasks), a
+          <strong>582-parameter</strong> controller on frozen backbones improves accuracy while cutting generated
+          tokens by <strong>65.5%</strong> and latency by <strong>47.6%</strong>.
         </p>
         <div class="cta">
           <a class="btn btn-soft" href="tutorial.html">▶ Watch the tutorial</a>
           <a class="btn btn-soft" href="#resources">Paper (coming soon)</a>
-          <a class="btn btn-soft" href="#resources">Code (coming soon)</a>
+          <a class="btn btn-soft" href="https://github.com/GongZhiren/State-of-Thought" target="_blank" rel="noreferrer">Code</a>
           <button class="btn btn-soft" type="button" disabled>Cite (coming soon)</button>
         </div>
       </div>
-      <figure class="card figure-card hero-figure">
-        <img src="./assets/intro_main.png" alt="From external control to state of thought" data-full="./assets/intro_main.png" loading="eager">
-        <figcaption>Figure. Paradigm shift: from external control to endogenous state-conditioned reasoning.</figcaption>
+      <figure class="hero-anim-card" aria-label="Animated illustration of the State of Thought reasoning loop">
+        <canvas id="sotAnim"></canvas>
+        <figcaption class="hero-anim-cap">The <b>SoT loop</b> — the endogenous state reads the trajectory, selects the sparse evidence that matters, and decides when to stop.</figcaption>
       </figure>
 
       <div class="hero-bottom grid2">
         <figure class="card figure-card">
-          <img src="./assets/intro_overview.png" alt="SoT overview across models tasks and efficiency" data-full="./assets/intro_overview.png" loading="lazy">
-          <figcaption>Figure. SoT performance across models, tasks, and efficiency metrics.</figcaption>
+          <img src="./assets/intro_main.png" alt="From external control to endogenous state-conditioned reasoning" data-full="./assets/intro_main.png" loading="lazy">
+          <figcaption>Figure. Paradigm shift: from external control to endogenous state-conditioned reasoning.</figcaption>
         </figure>
         <article class="card">
           <h3>Why This Paradigm Matters</h3>
@@ -85,34 +102,47 @@
       </div>
     </section>
 
-    <section class="container metrics">
-      <article><h3>4</h3><p>Backbones</p></article>
-      <article><h3>20</h3><p>Benchmarks</p></article>
-      <article><h3>69.0%</h3><p>Token reduction</p></article>
-      <article><h3>48.7%</h3><p>Latency reduction</p></article>
-      <article><h3>2.63x</h3><p>Long-context gain factor</p></article>
-      <article><h3>1.29x</h3><p>Quantitative gain factor</p></article>
-      <article><h3>1.62x</h3><p>General understanding gain factor</p></article>
-      <article><h3>1.72x</h3><p>Symbolic/code gain factor</p></article>
-      <article><h3>1.08x</h3><p>Multimodal gain factor</p></article>
-      <article><h3>84.1%</h3><p>Trajectory judge agreement</p></article>
+    <section class="container overview-row">
+      <figure class="card figure-card">
+        <img src="./assets/intro_overview.png" alt="SoT performance across models, tasks, and efficiency metrics" data-full="./assets/intro_overview.png" loading="lazy">
+        <figcaption>Figure. SoT performance across models, tasks, and efficiency metrics.</figcaption>
+      </figure>
+      <div class="metrics metric-grid">
+        <article><h3>3 + 2</h3><p>LLMs + VLM scales</p></article>
+        <article><h3>16</h3><p>Text benchmarks (+3 multimodal)</p></article>
+        <article><h3>65.5%</h3><p>Token reduction</p></article>
+        <article><h3>47.6%</h3><p>Latency reduction</p></article>
+        <article><h3>1.32×</h3><p>Quantitative gain factor</p></article>
+        <article><h3>1.62×</h3><p>General gain factor</p></article>
+        <article><h3>1.75×</h3><p>Symbolic/code gain factor</p></article>
+        <article><h3>2.52×</h3><p>Long-context gain factor</p></article>
+        <article><h3>582</h3><p>Controller parameters</p></article>
+        <article><h3>84.1%</h3><p>Black-box judge agreement</p></article>
+      </div>
     </section>
 
     <section id="abstract" class="container section">
       <h2>Abstract</h2>
       <article class="card">
         <p>
-          Existing test-time reasoning often depends on external control: scripted reasoning formats or expanded search spaces.
-          SoT instead introduces <strong>endogenous reasoning</strong>, where a compact state derived from internal model dynamics
-          controls both evidence selection and stopping.
+          Test-time compute improves LLMs, but existing reasoning paradigms rely on externally imposed control — fixed
+          reasoning programs or costly search in constrained spaces — which limits both generalization and efficiency.
+          We propose <strong>State of Thought (SoT)</strong>, a paradigm that enables <strong>endogenous reasoning</strong>,
+          with the model's own internal reasoning state governing how reasoning unfolds.
         </p>
         <p>
-          Concretely, SoT extracts a dynamics-geometric state and selectively activates historical support that matches the current
-          reasoning regime. This turns reasoning into a state-conditioned evidence process rather than an externally prescribed token chain.
+          Concretely, SoT extracts a compact <em>dynamics-geometric state</em> from the model's internal information transfer
+          and uses a <strong>582-parameter controller on frozen backbones</strong> to <em>selectively activate the historical
+          reasoning support</em> useful under the current state — framing reasoning as a state-conditioned process over
+          evidence rather than an externally prescribed token chain.
         </p>
         <p>
-          The empirical pattern is consistent across quantitative, general understanding, symbolic/code, long-context, and multimodal tasks:
-          SoT improves task quality while reducing unnecessary reasoning cost.
+          Across quantitative (<strong>1.32×</strong>), general (<strong>1.62×</strong>), symbolic-and-code
+          (<strong>1.75×</strong>), and long-context (<strong>2.52×</strong>) reasoning on <strong>3 LLMs and 16 datasets</strong>,
+          SoT consistently improves accuracy while reducing generated tokens by <strong>65.5%</strong> and latency by
+          <strong>47.6%</strong>. Across 2 VLM scales and 3 tasks, it adds <strong>3.8 points</strong> over reasoning
+          baselines with <strong>74.9% fewer</strong> completion tokens and <strong>73.5% lower</strong> latency than
+          search-based methods.
         </p>
       </article>
     </section>
@@ -121,18 +151,24 @@
       <h2>Method</h2>
       <div class="grid3 method-flow">
         <article class="card">
-          <h3>1) Read Endogenous State</h3>
-          <p>At each step, SoT reads a compact state summarizing geometry, progress dynamics, directional consistency, and uncertainty.</p>
-          <p class="note">Output: a control signal that reflects current reasoning regime.</p>
+          <h3>1) Read the endogenous state</h3>
+          <p>At each sentence-level step, SoT reads a compact <strong>dynamics-geometric state</strong> <em>m<sub>t</sub> ∈ ℝ<sup>4</sup></em>
+            from the backbone's internal information transfer: <strong>geometry</strong> (within-step dispersion),
+            <strong>progress</strong> (step displacement), <strong>direction</strong> (consistency between steps), and
+            <strong>uncertainty</strong> (predictive entropy).</p>
+          <p class="note">Output: a control signal reflecting the current reasoning regime.</p>
         </article>
         <article class="card">
-          <h3>2) Select State-Matched Evidence</h3>
-          <p>SoT activates only the subset of historical reasoning support that is useful under the current state.</p>
-          <p class="note">Output: sparse active context for the next reasoning step.</p>
+          <h3>2) Select state-matched evidence (𝒮)</h3>
+          <p>The evidence-organization operator re-selects only the sparse subset of past <strong>sentence-level reasoning
+            units</strong> that match the current state, and re-inserts them in order — sharpening the evidence carried
+            into the next step, rather than broadening search.</p>
+          <p class="note">Output: a sparse active context for the next reasoning step.</p>
         </article>
         <article class="card">
-          <h3>3) State-Conditioned Stopping</h3>
-          <p>The same endogenous state also governs whether to continue or stop, avoiding fixed-depth reasoning schedules.</p>
+          <h3>3) State-conditioned stopping (𝒯)</h3>
+          <p>The same state feeds a stopping operator, <em>p<sub>stop</sub> = σ(𝒯(m<sub>t</sub>))</em>: reasoning ends when
+            enough support has accumulated, so depth emerges from state rather than a fixed schedule.</p>
           <p class="note">Output: a closed loop balancing quality and efficiency.</p>
         </article>
       </div>
@@ -151,8 +187,11 @@
       <article class="card">
         <h3>Mechanism Insight</h3>
         <ul>
+          <li><strong>Tiny, frozen-backbone controller:</strong> only a <strong>582-parameter</strong> interface is trained
+            (a 16×32 selection head + a 4→1 stopping head); the backbone stays frozen. The selector is stable across
+            problem-held-out refits (AUC 0.779 ± 0.005).</li>
           <li><strong>Generalization source:</strong> SoT transfers as a control principle, not as a dataset-specific prompt recipe.</li>
-          <li><strong>Efficiency source:</strong> compute is redirected to relevant support, rather than uniformly longer chains.</li>
+          <li><strong>Efficiency source:</strong> compute is redirected to state-matched support, rather than uniformly longer chains.</li>
           <li><strong>Interpretability:</strong> state clusters align with distinct evidence-selection and stop behaviors.</li>
         </ul>
       </article>
@@ -194,7 +233,7 @@
               <tr><td>Memory</td><td>STREAM</td><td>70.4</td><td>44.2</td><td>1.3</td><td>44.4</td><td>1.5</td><td>31.8</td><td>1.0</td><td>0.0</td><td>5.6</td><td>13.0</td></tr>
               <tr><td>Latent</td><td>COCO</td><td>81.4</td><td>60.0</td><td>3.7</td><td>54.8</td><td>45.3</td><td>45.2</td><td>51.0</td><td>20.0</td><td>47.2</td><td>42.5</td></tr>
               <tr><td>RL-Based</td><td>GRPO</td><td>0.0</td><td>0.5</td><td>0.3</td><td>0.2</td><td>2.0</td><td>2.2</td><td>7.0</td><td>0.0</td><td>0.0</td><td>1.8</td></tr>
-              <tr class="best-row"><td>Ours</td><td>SoT</td><td>83.6</td><td>54.8</td><td>38.9</td><td>62.8</td><td>43.4</td><td>60.2</td><td>77.0</td><td>48.8</td><td>49.2</td><td>54.5</td></tr>
+              <tr class="best-row"><td>Ours</td><td>SoT</td><td>81.8</td><td>64.8</td><td>40.5</td><td>65.8</td><td>49.8</td><td>64.8</td><td>78.0</td><td>59.1</td><td>46.8</td><td>58.4</td></tr>
             </tbody>
           </table>
         </div>
@@ -234,7 +273,7 @@
               <tr><td>Memory</td><td>STREAM</td><td>34.8</td><td>26.2</td><td>38.8</td><td>22.4</td><td>0.0</td><td>25.6</td><td>2.5</td><td>0.0</td><td>0.0</td><td>1.1</td></tr>
               <tr><td>Latent</td><td>COCO</td><td>40.5</td><td>63.5</td><td>70.0</td><td>42.8</td><td>43.3</td><td>52.0</td><td>4.4</td><td>10.8</td><td>34.6</td><td>11.9</td></tr>
               <tr><td>RL-Based</td><td>GRPO</td><td>10.5</td><td>3.8</td><td>9.8</td><td>8.2</td><td>12.0</td><td>8.7</td><td>0.6</td><td>1.1</td><td>5.3</td><td>1.6</td></tr>
-              <tr class="best-row"><td>Ours</td><td>SoT</td><td>71.0</td><td>67.2</td><td>80.0</td><td>64.6</td><td>75.7</td><td>71.1</td><td>25.7</td><td>39.4</td><td>38.3</td><td>33.0</td></tr>
+              <tr class="best-row"><td>Ours</td><td>SoT</td><td>69.5</td><td>68.8</td><td>82.3</td><td>65.0</td><td>67.0</td><td>70.4</td><td>24.9</td><td>39.0</td><td>34.7</td><td>31.9</td></tr>
             </tbody>
           </table>
         </div>
@@ -245,7 +284,7 @@
         <p>Click each module to show the corresponding experimental table and interpretation.</p>
         <div class="result-controls">
           <button class="btn btn-soft result-toggle active" type="button" data-target="resultPanelBackbone">Cross-Backbone Generalization</button>
-          <button class="btn btn-soft result-toggle" type="button" data-target="resultPanelVLM">Multimodal Transfer (Qwen3-VL-8B)</button>
+          <button class="btn btn-soft result-toggle" type="button" data-target="resultPanelVLM">Multimodal Transfer (Qwen2.5-VL 7B/32B)</button>
           <button class="btn btn-soft result-toggle" type="button" data-target="resultPanelBoundary">Boundary Extensions</button>
         </div>
 
@@ -262,7 +301,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Qwen2.5-14B (SoT)</td><td>66.1</td><td>76.8</td><td>81.4</td><td>See Appendix table</td></tr>
+                <tr><td>Qwen2.5-14B (SoT)</td><td>66.1</td><td>76.8</td><td>81.4</td><td>25.2</td></tr>
                 <tr><td>Mixtral-8x7B (SoT)</td><td>46.3</td><td>51.7</td><td>72.6</td><td>23.5</td></tr>
               </tbody>
             </table>
@@ -279,27 +318,29 @@
             <table class="wide-table compact">
               <thead>
                 <tr>
-                  <th>Dataset</th>
-                  <th>CoT acc.</th>
+                  <th>Scale</th>
+                  <th>Task</th>
                   <th>SoT acc.</th>
-                  <th>CoT latency (s)</th>
-                  <th>SoT latency (s)</th>
-                  <th>CoT tokens</th>
                   <th>SoT tokens</th>
+                  <th>SoT latency (s)</th>
+                  <th>BoN acc.</th>
+                  <th>BoN tokens</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Beans-M</td><td>80.8</td><td>82.8</td><td>29.9</td><td>14.1</td><td>232.3</td><td>493.5</td></tr>
-                <tr><td>Fashion-MNIST</td><td>68.8</td><td>72.8</td><td>31.0</td><td>12.5</td><td>225.7</td><td>462.9</td></tr>
-                <tr><td>DocVQA</td><td>71.1</td><td>71.8</td><td>19.4</td><td>12.2</td><td>167.2</td><td>226.8</td></tr>
-                <tr><td>InfographicVQA</td><td>67.5</td><td>66.9</td><td>7.8</td><td>17.1</td><td>229.5</td><td>301.4</td></tr>
+                <tr><td>Qwen2.5-VL-7B</td><td>A-OKVQA</td><td>87.5</td><td>191</td><td>4.4</td><td>84.5</td><td>691</td></tr>
+                <tr><td>Qwen2.5-VL-7B</td><td>AI2D</td><td>86.7</td><td>215</td><td>5.4</td><td>88.7</td><td>961</td></tr>
+                <tr><td>Qwen2.5-VL-7B</td><td>M³CoT</td><td>87.3</td><td>198</td><td>4.5</td><td>86.7</td><td>919</td></tr>
+                <tr><td>Qwen2.5-VL-32B</td><td>A-OKVQA</td><td>85.5</td><td>425</td><td>23.2</td><td>85.0</td><td>1322</td></tr>
+                <tr><td>Qwen2.5-VL-32B</td><td>AI2D</td><td>90.0</td><td>364</td><td>19.2</td><td>87.3</td><td>1680</td></tr>
+                <tr><td>Qwen2.5-VL-32B</td><td>M³CoT</td><td>88.0</td><td>409</td><td>20.1</td><td>85.3</td><td>1633</td></tr>
               </tbody>
             </table>
           </div>
           <ul>
-            <li>SoT improves accuracy on Beans-M, Fashion-MNIST, and DocVQA while lowering latency on several visual tasks.</li>
-            <li>InfographicVQA remains harder for latency, showing where multimodal control still has room to improve.</li>
-            <li>Overall, state-conditioned evidence organization transfers beyond text-only reasoning.</li>
+            <li>SoT is best in <strong>5 of 6</strong> model–task settings, averaging <strong>87.5%</strong> accuracy.</li>
+            <li>On 7B AI2D it trails BoN by 2.0 points but uses <strong>4.5× fewer</strong> completion tokens; at 32B it exceeds the strongest alternative by 0.5–0.7 points on all three tasks with 3.1–4.6× fewer tokens.</li>
+            <li>Across both scales: <strong>+3.8 accuracy points</strong> over reasoning baselines, with <strong>74.9% fewer</strong> completion tokens and <strong>73.5% lower</strong> latency than search-based methods.</li>
           </ul>
         </div>
 
@@ -317,8 +358,8 @@
               </thead>
               <tbody>
                 <tr><td>Top-3 baseline average</td><td>53.5</td><td>44.0</td><td>61.5</td><td>24.2</td></tr>
-                <tr><td>SoT-Training-free</td><td>59.0</td><td>49.1</td><td>52.0</td><td>27.8</td></tr>
-                <tr><td>SoT-Embedding</td><td>59.0</td><td>49.8</td><td>51.9</td><td>28.6</td></tr>
+                <tr><td>SoT-Training-free</td><td>59.0</td><td>50.1</td><td>52.0</td><td>26.9</td></tr>
+                <tr><td>SoT-Embedding</td><td>59.0</td><td>49.8</td><td>51.9</td><td>27.9</td></tr>
               </tbody>
             </table>
           </div>
@@ -337,8 +378,10 @@
           is structural: changing the control variable from external token programs to endogenous state-conditioned evidence organization.
         </p>
         <p>
-          On Llama-3.1-8B, SoT leads all four domain averages and achieves best or tied-best performance on most datasets, showing
-          that robust gains do not require larger search budgets.
+          On Llama-3.1-8B, SoT leads all four domain averages and is best or tied-best on <strong>13 of 16</strong> datasets,
+          with an average domain-level gain of <strong>+10.8 points</strong> over the strongest competitor. Against the best
+          non-SoT baseline per domain it gains <strong>+10.3 / +15.9 / +6.8 / +10.1</strong> points (quantitative /
+          symbolic-and-code / general / long-context) — robust gains without larger search budgets.
         </p>
       </article>
     </section>
@@ -362,8 +405,8 @@
           <figcaption>Figure. Trade-off on Llama-3.1-8B.</figcaption>
         </figure>
         <figure class="card figure-card">
-          <img src="./assets/tradeoff_qwen3vl_ungrouped_baselines.png" alt="Tradeoff on Qwen3-VL-8B" data-full="./assets/tradeoff_qwen3vl_ungrouped_baselines.png" loading="lazy">
-          <figcaption>Figure. Trade-off on Qwen3-VL-8B.</figcaption>
+          <img src="./assets/tradeoff_qwen25vl_two_scale.png" alt="Tradeoff on Qwen2.5-VL 7B and 32B" data-full="./assets/tradeoff_qwen25vl_two_scale.png" loading="lazy">
+          <figcaption>Figure. Trade-off on Qwen2.5-VL (7B / 32B) — SoT stays at high accuracy with far fewer tokens.</figcaption>
         </figure>
       </div>
 
@@ -387,9 +430,9 @@
               <tr><td>Self-Consistency</td><td>736.8 / 43.1</td><td>953.9 / 63.5</td><td>626.5 / 37.6</td><td>533.8 / 48.9</td><td>712.8</td><td>48.3</td></tr>
               <tr><td>Constrained Beam</td><td>423.9 / 22.0</td><td>363.9 / 19.4</td><td>341.7 / 16.8</td><td>283.7 / 19.5</td><td>353.3</td><td>19.4</td></tr>
               <tr><td>MCTS</td><td>422.1 / 21.4</td><td>364.7 / 19.4</td><td>335.2 / 16.5</td><td>286.6 / 20.5</td><td>352.1</td><td>19.4</td></tr>
-              <tr><td>H2O</td><td>226.0 / 16.7</td><td>264.4 / 34.6</td><td>185.6 / 15.8</td><td>155.8 / 21.5</td><td>207.9</td><td>22.1</td></tr>
+              <tr><td>H2O</td><td>226.0 / 16.7</td><td>264.4 / 34.6</td><td>185.6 / 15.8</td><td>164.6 / 21.5</td><td>210.2</td><td>22.1</td></tr>
               <tr><td>COCO</td><td>171.5 / 11.5</td><td>214.6 / 20.4</td><td>87.2 / 6.7</td><td>131.5 / 30.3</td><td>151.2</td><td>17.2</td></tr>
-              <tr class="best-row"><td>SoT</td><td>219.4 / 5.8</td><td>294.0 / 9.5</td><td>64.0 / 1.8</td><td>181.6 / 22.0</td><td>189.8</td><td>9.8</td></tr>
+              <tr class="best-row"><td>SoT</td><td>255.7 / 5.8</td><td>302.2 / 9.5</td><td>74.9 / 1.8</td><td>263.0 / 22.0</td><td>223.9</td><td>9.8</td></tr>
             </tbody>
           </table>
         </div>
@@ -460,10 +503,10 @@
           <h3>Paper</h3>
           <p>Coming soon.</p>
         </article>
-        <article class="card resource-card">
+        <a class="card resource-card" href="https://github.com/GongZhiren/State-of-Thought" target="_blank" rel="noreferrer" style="text-decoration:none">
           <h3>Code</h3>
-          <p>Coming soon.</p>
-        </article>
+          <p>Reference implementation on GitHub — <strong>GongZhiren/State-of-Thought</strong>.</p>
+        </a>
         <article class="card resource-card">
           <h3>Citation</h3>
           <p>Formal BibTeX will be released soon.</p>
@@ -488,6 +531,95 @@
     <img id="lightboxImg" src="" alt="Expanded figure preview">
   </div>
 
+  <script>
+  /* Animated SoT reasoning-loop: endogenous state -> sparse evidence selection -> step -> stop.
+     Self-contained canvas animation on the light hero card. */
+  (function(){
+    const cv=document.getElementById('sotAnim'); if(!cv) return;
+    const wrap=cv.parentElement, ctx=cv.getContext('2d');
+    const C={cyan:'#46c5d9',teal:'#3aa88f',blue:'#5e8dff',mint:'#63dfbf',ink:'#16324f',soft:'#7d97b6',line:'rgba(96,150,196,.28)'};
+    const DIM=[['δ','geometry',C.cyan],['v','progress',C.blue],['c','direction',C.teal],['H','uncertainty',C.mint]];
+    const N=6, PERIOD=9200;
+    let W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1),t0=performance.now(),reduce=false;
+    try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+    function resize(){const r=wrap.getBoundingClientRect();W=Math.max(60,r.width);H=Math.max(60,r.height);
+      cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);}
+    new ResizeObserver(resize).observe(wrap); resize();
+    const clamp=(x,a,b)=>x<a?a:x>b?b:x, ss=(a,b,t)=>{t=clamp((t-a)/(b-a),0,1);return t*t*(3-2*t);}, eo=t=>1-Math.pow(1-clamp(t,0,1),3);
+    function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+    function dot(x,y,r,fill,glow,ga){if(glow){ctx.save();ctx.shadowColor=glow;ctx.shadowBlur=ga||16;}ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=fill;ctx.fill();if(glow)ctx.restore();}
+    function label(t,x,y,s,col,al,w,mono){ctx.save();ctx.globalAlpha=al==null?1:al;ctx.fillStyle=col;ctx.font=`${w||600} ${s}px ${mono?"'JetBrains Mono',ui-monospace,monospace":"Inter,system-ui,sans-serif"}`;ctx.fillText(t,x,y);ctx.restore();}
+
+    function frame(now){
+      const gt=now-t0, ep=reduce?0.62:((gt%PERIOD)/PERIOD);
+      ctx.clearRect(0,0,W,H);
+      const pad=clamp(W*0.05,16,34);
+      // ---- state panel ----
+      const sx=pad, sy=pad, sw=W-2*pad, sh=clamp(H*0.30,96,150);
+      rr(sx,sy,sw,sh,16);ctx.fillStyle='rgba(233,247,252,.75)';ctx.fill();ctx.lineWidth=1;ctx.strokeStyle=C.line;ctx.stroke();
+      // rotating closed-loop ring around the panel
+      ctx.save();ctx.setLineDash([10,9]);ctx.lineDashOffset=-(gt*0.03);ctx.lineWidth=1.6;ctx.strokeStyle='rgba(70,197,217,.5)';
+      rr(sx+3,sy+3,sw-6,sh-6,14);ctx.stroke();ctx.restore();
+      label('endogenous state',sx+16,sy+26,14,C.ink,1,800);
+      label('m',sx+16,sy+48,17,C.teal,1,800,true);label('t',sx+30,sy+52,11,C.soft,1,700,true);
+      label('reads the trajectory',sx+16,sy+70,12.5,C.soft,1,600);
+      // gauges
+      const gN=DIM.length, gx0=sx+sw*0.42, gW=(sw*0.55)/gN, gTop=sy+22, gH=sh-52;
+      DIM.forEach((d,i)=>{const cx=gx0+i*gW+gW*0.5, bw=clamp(gW*0.34,10,20);
+        const val=0.35+0.32*(1+Math.sin(gt*0.0013*(1+i*0.35)+i*1.7))+0.06*Math.sin(gt*0.006+i);
+        const v=clamp(val,0.12,0.98), bh=gH*v;
+        rr(cx-bw/2,gTop,bw,gH,bw/2);ctx.fillStyle='rgba(120,160,200,.16)';ctx.fill();
+        ctx.save();ctx.shadowColor=d[2];ctx.shadowBlur=10;rr(cx-bw/2,gTop+gH-bh,bw,bh,bw/2);ctx.fillStyle=d[2];ctx.fill();ctx.restore();
+        label(d[0],cx,gTop+gH+18,14,C.ink,1,800,true);ctx.textAlign='left';
+      });
+      ctx.textAlign='left';
+
+      // ---- trajectory ----
+      const yB=sy+sh+clamp(H*0.28,58,120), xL=pad+8, xR=W-pad-34, dx=(xR-xL)/(N-1), amp=clamp(H*0.05,10,26);
+      const nodes=[];for(let i=0;i<N;i++)nodes.push([xL+i*dx, yB+Math.sin(i*0.95+0.3)*amp]);
+      const prog=ep/0.72, shown=reduce?N:clamp(Math.floor(prog*N)+1,1,N), cur=shown-1;
+      const commit=ss(0.84,0.98,ep);
+      // connector through shown nodes
+      if(shown>1){ctx.save();ctx.lineWidth=3;ctx.setLineDash([7,7]);ctx.lineDashOffset=-(gt*0.05);
+        const g=ctx.createLinearGradient(xL,0,xR,0);g.addColorStop(0,C.cyan);g.addColorStop(1,C.blue);ctx.strokeStyle=g;
+        ctx.beginPath();ctx.moveTo(nodes[0][0],nodes[0][1]);for(let i=1;i<shown;i++)ctx.lineTo(nodes[i][0],nodes[i][1]);ctx.stroke();ctx.restore();}
+      // selection: sparse past subset for current step
+      const sel=[];if(cur>0){sel.push(cur-1);if(cur-3>=0)sel.push(cur-3);else if(cur-2>=0)sel.push(cur-2);}
+      sel.forEach((si,k)=>{const a=eo((ep*1.0-0.02)*3-k*0.15);if(a<=0)return;const p0=nodes[si],p1=nodes[cur];
+        ctx.save();ctx.globalAlpha=0.9*a;ctx.lineWidth=2.4;ctx.strokeStyle=C.mint;ctx.shadowColor=C.mint;ctx.shadowBlur=8;
+        const mx=(p0[0]+p1[0])/2,my=Math.min(p0[1],p1[1])-clamp(H*0.16,34,66);
+        ctx.beginPath();ctx.moveTo(p0[0],p0[1]);ctx.quadraticCurveTo(mx,my,p1[0],p1[1]);ctx.stroke();ctx.restore();});
+      // nodes
+      for(let i=0;i<N;i++){const [x,y]=nodes[i];const isCur=i===cur, isSel=sel.indexOf(i)>=0, on=i<shown;
+        if(!on){dot(x,y,7,'rgba(150,180,210,.28)');continue;}
+        const isAns=(i===N-1)&&commit>0.02;
+        if(isSel){ctx.save();ctx.globalAlpha=.9;ctx.lineWidth=2.4;ctx.strokeStyle=C.mint;ctx.beginPath();ctx.arc(x,y,13,0,7);ctx.stroke();ctx.restore();}
+        if(isAns){dot(x,y,11+3*Math.sin(gt*0.02),'#ffffff',C.mint,22);ctx.save();ctx.lineWidth=3;ctx.strokeStyle=C.teal;ctx.beginPath();ctx.arc(x,y,11,0,7);ctx.stroke();
+          ctx.strokeStyle=C.teal;ctx.lineWidth=2.4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x-4.5,y);ctx.lineTo(x-1,y+3.6);ctx.lineTo(x+5,y-3.6);ctx.stroke();ctx.restore();}
+        else if(isCur){dot(x,y,10,'#ffffff',C.cyan,20);ctx.save();ctx.lineWidth=3;ctx.strokeStyle=C.cyan;ctx.beginPath();ctx.arc(x,y,10,0,7);ctx.stroke();ctx.restore();dot(x,y,4.5,C.cyan);}
+        else{dot(x,y,8.5,'#ffffff');ctx.save();ctx.lineWidth=2;ctx.strokeStyle=isSel?C.mint:'rgba(90,140,190,.6)';ctx.beginPath();ctx.arc(x,y,8.5,0,7);ctx.stroke();ctx.restore();dot(x,y,3.4,isSel?C.mint:C.soft);}
+      }
+      // "reads" pulse from current node up to state panel
+      if(!reduce){const local=(prog*N)%1, pr=eo(local);const [cx,cy]=nodes[cur];const ty=sy+sh;
+        const px=cx+(sx+sw*0.5-cx)*pr*0.28, py=cy+(ty-cy)*pr;dot(px,py,3.5,C.cyan,C.cyan,10);}
+      // labels for trajectory
+      label('reasoning steps  (sentence-level units)',xL,yB+amp+40,12.5,C.soft,1,600);
+      label('sparse active evidence',nodes[cur][0]-10,Math.min.apply(null,nodes.slice(0,shown).map(n=>n[1]))-clamp(H*0.16,34,66)-8,12,C.teal,eo(ep*3-0.2),700);
+
+      // ---- stop meter ----
+      const mx=W-pad-8, mTop=yB-clamp(H*0.15,34,64), mH=clamp(H*0.30,80,150), mW=9;
+      rr(mx-mW/2,mTop,mW,mH,mW/2);ctx.fillStyle='rgba(120,160,200,.18)';ctx.fill();
+      const pStop=clamp(reduce?0.55:(0.12+0.72*ss(0.05,0.8,ep)+0.16*commit),0,1), fh=mH*pStop;
+      ctx.save();ctx.shadowColor=commit>0.3?C.mint:C.blue;ctx.shadowBlur=10;rr(mx-mW/2,mTop+mH-fh,mW,fh,mW/2);ctx.fillStyle=commit>0.3?C.mint:C.blue;ctx.fill();ctx.restore();
+      // threshold tick
+      const thY=mTop+mH*(1-0.8);ctx.strokeStyle='rgba(58,168,143,.8)';ctx.lineWidth=1.6;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(mx-mW/2-5,thY);ctx.lineTo(mx+mW/2+5,thY);ctx.stroke();ctx.setLineDash([]);
+      ctx.save();ctx.translate(mx+14,mTop+mH/2);ctx.rotate(Math.PI/2);label('p(stop)',0,0,12,C.soft,1,700,true);ctx.restore();
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
   <script src="./script.js"></script>
 </body>
 </html>
