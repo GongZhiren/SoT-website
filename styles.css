@@ -610,7 +610,7 @@ ul {
 
 /* ---- animated hero (SoT worked example) + overview row + brand mark ---- */
 .hero-anim-card{
-  position:relative; overflow:hidden; padding:0; min-height:430px;
+  position:relative; overflow:hidden; padding:0; min-height:340px; align-self:start;
   background:radial-gradient(120% 100% at 16% 0%, rgba(70,197,217,.12), transparent 55%),
              radial-gradient(120% 120% at 100% 100%, rgba(94,141,255,.12), transparent 55%),
              linear-gradient(165deg,#ffffff,#eef9fd);
@@ -626,20 +626,18 @@ ul {
 .sot-q{margin:2px 0 0; font-weight:700; color:#16324f; font-size:.98rem; display:flex; gap:9px; align-items:baseline; line-height:1.3;}
 .sot-q b{color:#2b7a99; font-weight:800; font-size:.66rem; text-transform:uppercase; letter-spacing:.06em; flex:none;}
 .sot-main{display:grid; grid-template-columns:minmax(0,1fr) 140px; gap:11px; align-items:start;}
-.sot-chain{display:flex; flex-direction:column; gap:7px;}
+.sot-chain{position:relative; display:flex; flex-direction:column; gap:7px; padding-left:24px; transition:opacity .38s ease;}
+.sot-arcs{position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0;}
 .sot-chip{display:flex; gap:8px; align-items:center; background:#fff; border:1px solid rgba(96,150,196,.26);
   border-left:4px solid transparent; border-radius:11px; padding:7px 10px; font-size:.85rem; color:#2a4462;
   box-shadow:0 4px 13px rgba(31,72,120,.06);
   opacity:0; transform:translateY(7px); transition:opacity .45s, transform .45s, border-color .4s, background .4s, box-shadow .4s;}
-.sot-chip.on{opacity:1; transform:none;}
+.sot-chip.on{opacity:.5; transform:none;}
 .sot-chip .n{flex:none; width:19px; height:19px; border-radius:6px; display:grid; place-items:center;
   font-weight:800; font-size:.7rem; color:#0e5a6e; background:linear-gradient(135deg,#cdeff5,#d6f7ee);}
 .sot-chip .t{flex:1; min-width:0;}
-.sot-chip.cur{border-color:var(--cyan); box-shadow:0 0 0 3px rgba(70,197,217,.16), 0 8px 20px rgba(70,197,217,.16);}
-.sot-chip.keep{border-left-color:var(--mint);}
-.sot-chip.keep .tag{color:#1f8f76;}
-.sot-chip.drop{opacity:.5;}
-.sot-chip.drop .t{text-decoration:line-through; text-decoration-color:rgba(206,86,86,.55);}
+.sot-chip.cur{opacity:1; border-color:var(--cyan); box-shadow:0 0 0 3px rgba(70,197,217,.16), 0 8px 20px rgba(70,197,217,.16);}
+.sot-chip.sel{opacity:1; border-left-color:var(--mint); box-shadow:0 6px 16px rgba(58,168,143,.14);}
 .sot-chip .tag{margin-left:auto; flex:none; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#93a7c2;}
 .sot-chip.ans{background:linear-gradient(135deg,rgba(99,223,191,.24),rgba(70,197,217,.15)); border-color:rgba(58,168,143,.5); border-left-color:var(--teal); color:#0f5a4a; font-weight:700;}
 .sot-chip.ans .n{background:linear-gradient(135deg,#63dfbf,#46c5d9); color:#08463a;}
@@ -658,9 +656,10 @@ ul {
 .sot-stopbar i{position:absolute; left:0; top:0; bottom:0; width:8%; border-radius:7px;
   background:linear-gradient(90deg,var(--blue),var(--mint)); box-shadow:0 0 10px rgba(94,141,255,.5); transition:width .55s ease;}
 .sot-stopbar u{position:absolute; left:80%; top:-2px; bottom:-2px; width:2px; background:rgba(58,168,143,.85);}
+.sot-sel{margin-top:3px; min-height:1em; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.7rem; font-weight:700; letter-spacing:.01em; color:#2b7a99;}
 .sot-cap{margin:6px 0 0; font-size:.82rem; color:#42608a; line-height:1.4;}
 .sot-cap b{color:#1b5872;}
-@media (max-width:900px){ .hero-anim-card{min-height:430px;} .sot-main{grid-template-columns:minmax(0,1fr) 124px;} }
+@media (max-width:900px){ .hero-anim-card{min-height:320px;} .sot-main{grid-template-columns:minmax(0,1fr) 124px;} }
 
 .overview-row{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:14px; margin-top:12px; align-items:start;}
 .overview-row > .figure-card{margin:0;}
@@ -673,3 +672,4 @@ ul {
 .hero-bottom .figure-card img{max-height:440px;}
 
 .brand-mark{width:24px; height:24px; display:block; flex:none; filter:drop-shadow(0 0 5px rgba(70,197,217,.4));}
+.sot-chip{ position:relative; z-index:1; }

@@ -86,7 +86,7 @@
             <span class="sot-badge">Reasoning, from the inside</span>
             <span class="sot-loop" title="closed loop"></span>
           </div>
-          <p class="sot-q"><b>Ask</b><span>Which bag for a rainy hiking trip?</span></p>
+          <p class="sot-q"><b>Ask</b><span id="sotQ">Which bag for a rainy hiking trip?</span></p>
           <div class="sot-main">
             <div class="sot-chain" id="sotChain"></div>
             <aside class="sot-side">
@@ -102,10 +102,11 @@
               <div class="sot-panel">
                 <h5>p(stop)</h5>
                 <div class="sot-stopbar"><i id="sotStopFill"></i><u></u></div>
+                <div class="sot-sel" id="sotSel"></div>
               </div>
             </aside>
           </div>
-          <p class="sot-cap">The <b>endogenous state</b> keeps only the evidence still needed, drops the rest, and raises <b>p(stop)</b> when the answer locks in — no external script.</p>
+          <p class="sot-cap">Each step, the <b>endogenous state</b> re-selects only the past steps that matter <em>for this step</em> (green links) — then raises <b>p(stop)</b> as the answer locks in.</p>
         </div>
       </figure>
 
@@ -556,41 +557,64 @@
   </div>
 
   <script>
-  /* Live SoT worked example: a reasoning chain builds step by step; the endogenous
-     state keeps only the evidence still needed and raises p(stop) toward the answer. */
+  /* Live SoT: a reasoning chain builds step by step. Each step's endogenous state
+     re-selects only the prior steps that matter FOR THAT step (green links), so the
+     active evidence is relative, not fixed. Cycles through several examples. */
   (function(){
     const chain=document.getElementById('sotChain'); if(!chain) return;
-    const stopFill=document.getElementById('sotStopFill');
-    const steps=[
-      {n:'1', t:'Needs: waterproof and easy to carry.', tag:'keep'},
-      {n:'2', t:'A paper bag? Rain would soak through.', tag:'drop'},
-      {n:'3', t:'A small suitcase? Awkward on a trail.', tag:'drop'},
-      {n:'4', t:'A waterproof backpack keeps gear dry.', tag:'keep'},
-      {n:'5', t:'Its side pocket even holds the bottle.', tag:'keep'},
-      {n:'✓', t:'Take the waterproof backpack.', tag:'ans'}
+    const qEl=document.getElementById('sotQ'), stopFill=document.getElementById('sotStopFill'), selEl=document.getElementById('sotSel');
+    const NS='http://www.w3.org/2000/svg';
+    const EX=[
+      {q:'Which bag for a rainy hiking trip?',
+       steps:['Needs: waterproof and easy to carry.','A paper bag would soak through.','A suitcase is awkward on a trail.','A waterproof backpack fits both needs.','Its side pocket holds the water bottle.','Take the waterproof backpack.'],
+       deps:[[],[0],[0],[0],[3],[0,3,4]]},
+      {q:'A 5-pack is $20, a single is $5. Cheapest way to get 8?',
+       steps:['Goal: 8 bottles at the lowest cost.','One 5-pack covers 5 for $20.','3 more as singles cost 3 x $5 = $15.','So a 5-pack + 3 singles = $35.','All 8 as singles would be $40.','$35: one 5-pack plus 3 singles.'],
+       deps:[[],[0],[0,1],[1,2],[0],[3,4]]},
+      {q:"It's 9:40 and a task takes 25 min - done before 10?",
+       steps:['Start time is 9:40.','The task takes 25 minutes.','9:40 + 25 min = 10:05.','10:05 is later than 10:00.','No - it finishes at 10:05.'],
+       deps:[[],[],[0,1],[2],[2,3]]}
     ];
-    /* which prior steps stay active evidence when step i is current */
-    const active=[[0],[0],[0],[0,3],[0,3,4],[0,3,4]];
-    const els=steps.map(s=>{ const d=document.createElement('div');
-      d.className='sot-chip'+(s.tag==='ans'?' ans':'');
-      d.innerHTML='<span class="n">'+s.n+'</span><span class="t">'+s.t+'</span>'+(s.tag!=='ans'?'<span class="tag"></span>':'');
-      chain.appendChild(d); return d; });
     let reduce=false; try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
-    let i=0, timer=null;
-    function clearAll(){ els.forEach(e=>{ e.classList.remove('on','cur','keep','drop'); const tg=e.querySelector('.tag'); if(tg) tg.textContent=''; }); if(stopFill) stopFill.style.width='8%'; }
-    function tick(){
-      if(i>=steps.length){ timer=setTimeout(()=>{ clearAll(); i=0; tick(); }, 2500); return; }
-      const e=els[i], s=steps[i], act=active[i]||[];
-      e.classList.add('on');
-      els.forEach((x,j)=>{ x.classList.toggle('cur', j===i);
-        if(j<i){ if(act.indexOf(j)>=0){ x.classList.add('keep'); x.classList.remove('drop'); }
-                 else { x.classList.add('drop'); x.classList.remove('keep'); } } });
-      const tg=e.querySelector('.tag'); if(tg) tg.textContent = s.tag==='keep'?'keep': s.tag==='drop'?'drop':'';
-      if(stopFill) stopFill.style.width=(s.tag==='ans'?100:(12+(i/(steps.length-1))*70))+'%';
-      i++; timer=setTimeout(tick, reduce?700:1350);
+    let exi=0, i=0, timer=null, svg=null, chips=[];
+    const STEP=2050, HOLD=2700;
+    function build(){
+      const ex=EX[exi]; qEl.textContent=ex.q; chain.innerHTML='';
+      svg=document.createElementNS(NS,'svg'); svg.setAttribute('class','sot-arcs'); chain.appendChild(svg);
+      chips=ex.steps.map((t,k)=>{ const ans=(k===ex.steps.length-1); const d=document.createElement('div');
+        d.className='sot-chip'+(ans?' ans':'');
+        d.innerHTML='<span class="n">'+(ans?'\u2713':(k+1))+'</span><span class="t">'+t+'</span>';
+        d.style.display='none'; chain.appendChild(d); return d; });
+      i=0;
     }
-    if(reduce){ els.forEach((e,j)=>{ e.classList.add('on'); if(active[steps.length-1].indexOf(j)>=0) e.classList.add('keep'); else if(j<steps.length-1) e.classList.add('drop'); }); if(stopFill) stopFill.style.width='100%'; }
-    else tick();
+    function draw(){
+      const ex=EX[exi];
+      chips.forEach((c,k)=>{ c.style.display = (k<=i)?'':'none'; });
+      const cr=chain.getBoundingClientRect();
+      const cy=chips.map(c=>{const r=c.getBoundingClientRect(); return r.top-cr.top+r.height/2;});
+      const gx=12, deps=ex.deps[i]||[];
+      svg.setAttribute('viewBox','0 0 '+chain.clientWidth+' '+chain.clientHeight); svg.innerHTML='';
+      deps.forEach(j=>{ const y0=cy[j], y1=cy[i], pa=document.createElementNS(NS,'path');
+        pa.setAttribute('d','M '+gx+' '+y0+' C '+(gx-13)+' '+y0+', '+(gx-13)+' '+y1+', '+gx+' '+y1);
+        pa.setAttribute('fill','none'); pa.setAttribute('stroke','#3aa88f'); pa.setAttribute('stroke-width','2.3'); pa.setAttribute('stroke-linecap','round'); pa.setAttribute('opacity','.92');
+        pa.style.filter='drop-shadow(0 0 3px rgba(58,168,143,.55))';
+        const len=Math.abs(y1-y0)+34; pa.setAttribute('stroke-dasharray',len); pa.setAttribute('stroke-dashoffset',reduce?0:len);
+        if(!reduce&&pa.animate) pa.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:520,fill:'forwards',easing:'ease-out'});
+        svg.appendChild(pa); });
+      for(let k=0;k<=i;k++){ const c=document.createElementNS(NS,'circle'); const isCur=k===i, isDep=deps.indexOf(k)>=0;
+        c.setAttribute('cx',gx); c.setAttribute('cy',cy[k]); c.setAttribute('r', isCur?5:(isDep?4.6:3.2));
+        c.setAttribute('fill', isCur?'#46c5d9':(isDep?'#3aa88f':'#b9c8da'));
+        if(isCur||isDep) c.setAttribute('style','filter:drop-shadow(0 0 4px '+(isCur?'#46c5d9':'#3aa88f')+')'); svg.appendChild(c); }
+      chips.forEach((c,k)=>{ c.classList.toggle('on',k<=i); c.classList.toggle('cur',k===i); c.classList.toggle('sel',deps.indexOf(k)>=0); });
+      if(selEl) selEl.textContent = i===0 ? 'step 1 \u00b7 first evidence' : (deps.length ? ('step '+(i+1)+' \u00b7 uses '+deps.map(d=>d+1).join(', ')) : ('step '+(i+1)));
+      const ans=(i===ex.steps.length-1); if(stopFill) stopFill.style.width=(ans?100:(12+(i/(ex.steps.length-1))*72))+'%';
+    }
+    function tick(){ const ex=EX[exi];
+      if(i<ex.steps.length){ draw(); i++; timer=setTimeout(tick,STEP); } else { timer=setTimeout(next,HOLD); } }
+    function next(){ chain.style.opacity='0';
+      timer=setTimeout(()=>{ exi=(exi+1)%EX.length; build(); requestAnimationFrame(()=>{ chain.style.opacity='1'; tick(); }); },400); }
+    build();
+    if(reduce){ i=EX[0].steps.length-1; draw(); } else requestAnimationFrame(tick);
   })();
   </script>
   <script src="./script.js"></script>
