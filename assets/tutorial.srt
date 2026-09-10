@@ -199,93 +199,93 @@ The gains are largest exactly where fixed control struggles most:
 long-context and symbolic reasoning.
 
 51
-00:03:10,632 --> 00:03:13,986
+00:03:10,632 --> 00:03:14,151
 And it reaches those numbers while spending less:
 
 52
-00:03:13,986 --> 00:03:17,271
-about sixty-five percent fewer generated tokens,
+00:03:14,151 --> 00:03:17,527
+about sixty-two percent fewer generated tokens,
 
 53
-00:03:17,271 --> 00:03:19,872
-and forty-eight percent lower latency.
+00:03:17,527 --> 00:03:20,184
+and forty-five percent lower latency.
 
 54
-00:03:20,322 --> 00:03:23,046
+00:03:20,634 --> 00:03:23,358
 On the accuracy-versus-cost frontier,
 
 55
-00:03:23,046 --> 00:03:26,947
+00:03:23,358 --> 00:03:27,259
 search-heavy methods drift into the expensive corner,
 
 56
-00:03:26,947 --> 00:03:30,186
+00:03:27,259 --> 00:03:30,498
 while SoT sits at high quality and low cost.
 
 57
-00:03:30,636 --> 00:03:34,166
+00:03:30,948 --> 00:03:34,478
 Why does trimming evidence help, instead of hurting?
 
 58
-00:03:34,166 --> 00:03:39,732
+00:03:34,478 --> 00:03:40,044
 Because state-matched context is exactly the context the next step actually needs.
 
 59
-00:03:40,182 --> 00:03:42,930
+00:03:40,494 --> 00:03:43,242
 Clustering the states makes it visible:
 
 60
-00:03:42,930 --> 00:03:47,792
+00:03:43,242 --> 00:03:48,104
 each reasoning regime maps to its own stable pattern of what to keep,
 
 61
-00:03:47,792 --> 00:03:48,990
+00:03:48,104 --> 00:03:49,302
 and when to stop.
 
 62
-00:03:49,440 --> 00:03:53,555
+00:03:49,752 --> 00:03:53,867
 In a single case you can watch it keep only the live sub-results,
 
 63
-00:03:53,555 --> 00:03:58,176
+00:03:53,867 --> 00:03:58,488
 drop the stale ones, and raise its stop-readiness as the answer locks in.
 
 64
-00:03:58,626 --> 00:04:00,949
+00:03:58,938 --> 00:04:01,261
 Does it depend on the full recipe?
 
 65
-00:04:00,949 --> 00:04:05,322
+00:04:01,261 --> 00:04:05,634
 Strip the training away and use fixed rules — still competitive.
 
 66
-00:04:05,772 --> 00:04:11,028
+00:04:06,084 --> 00:04:11,340
 Hide the internals and drive it from text embeddings alone — still competitive.
 
 67
-00:04:11,478 --> 00:04:15,649
+00:04:11,790 --> 00:04:15,961
 It transfers across architectures — dense, mixture-of-experts,
 
 68
-00:04:15,649 --> 00:04:17,600
+00:04:15,961 --> 00:04:17,912
 and a vision-language model —
 
 69
-00:04:17,600 --> 00:04:24,462
+00:04:17,912 --> 00:04:24,774
 and even to a black-box trajectory judge that agrees with correctness eighty-four percent of the time.
 
 70
-00:04:24,912 --> 00:04:29,664
+00:04:25,224 --> 00:04:29,976
 The advantage is the principle, not any single implementation.
 
 71
-00:04:30,114 --> 00:04:34,678
+00:04:30,426 --> 00:04:34,990
 So reasoning need not rely on ever more external scaffolding.
 
 72
-00:04:34,678 --> 00:04:40,139
+00:04:34,990 --> 00:04:40,451
 Adaptivity and efficiency can emerge from the model's own internal state.
 
 73
-00:04:40,139 --> 00:04:44,778
+00:04:40,451 --> 00:04:45,090
 Code, an interactive page, and the paper are linked on screen.
