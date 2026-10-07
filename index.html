@@ -108,6 +108,18 @@
             </aside>
           </div>
           <p class="sot-cap">Each step, the <b>endogenous state</b> re-selects only the past steps that matter <em>for this step</em> (green links) — then raises <b>p(stop)</b> as the answer locks in.</p>
+          <div class="sot-res">
+            <div class="sot-cmp">
+              <div class="sot-cmprow"><span>Chain-of-Thought</span><span class="sot-bar"><i data-w="100" style="background:linear-gradient(90deg,#9fb2cc,#c3d0e0)"></i></span><b>520 tok</b></div>
+              <div class="sot-cmprow"><span>State of Thought</span><span class="sot-bar"><i data-w="38" style="background:linear-gradient(90deg,var(--blue),var(--mint))"></i></span><b style="color:#0f5a4a">198 tok</b></div>
+            </div>
+            <div class="sot-stats">
+              <div class="sot-stat"><div class="big g" id="sotTok">—</div><div class="lab">fewer tokens generated</div></div>
+              <div class="sot-stat"><div class="big g" id="sotLat">—</div><div class="lab">lower end-to-end latency</div></div>
+              <div class="sot-stat"><div class="big">582</div><div class="lab">param controller, frozen backbone</div></div>
+            </div>
+            <p class="sot-foot">One tiny controller reads the endogenous state to organize evidence and stop early — consistent gains across <b>3 LLMs + 2 VLMs</b>.</p>
+          </div>
         </div>
       </figure>
 
@@ -614,6 +626,23 @@
       timer=setTimeout(()=>{ exi=(exi+1)%EX.length; build(); requestAnimationFrame(()=>{ chain.style.opacity='1'; tick(); }); },400); }
     build();
     if(reduce){ i=EX[0].steps.length-1; draw(); } else requestAnimationFrame(tick);
+  })();
+  /* SoT result strip: token/latency payoff animates once on first view */
+  (function(){
+    var res=document.querySelector('.sot-res'); if(!res) return;
+    var bars=res.querySelectorAll('.sot-bar i');
+    var tok=document.getElementById('sotTok'), lat=document.getElementById('sotLat');
+    function countUp(el,to,dur){ if(!el)return; var t0=null;
+      function f(ts){ if(!t0)t0=ts; var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3);
+        el.textContent='-'+Math.round(to*e)+'%'; if(k<1)requestAnimationFrame(f);} requestAnimationFrame(f); }
+    function go(){ bars.forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
+      countUp(tok,62,1000); countUp(lat,45,1000); }
+    var reduce=false; try{reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}
+    if(reduce){ bars.forEach(function(b){b.style.width=b.getAttribute('data-w')+'%';}); if(tok)tok.textContent='-62%'; if(lat)lat.textContent='-45%'; return; }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){go();io.disconnect();}});},{threshold:.4});
+      io.observe(res);
+    } else go();
   })();
   </script>
   <script src="./script.js"></script>
